@@ -40,7 +40,8 @@ web applications which prevent JS code from fetching resources from another doma
 
 This will later on allow to add more permanent features and customisations for the end-user.
 
-The technology to serve as a backend does not matter much. The more currently popular so that collaboration is easier.
+The technology to serve as a backend does not matter much. The more currently popular so that collaboration is easier 
+but keeping in mind that memory consumption must be low to fit inside a t4g.nano instance with 512MB of memory.
 
 ### Infrastructure
 
@@ -89,9 +90,13 @@ testing.
 
 This is a non professional project with a no profit goal, so being cheap to maintain is important, since it is likely
 to be paid by a single person.
+
 For this reason hosting into a single instance with a fixed IP is chosen in AWS, T4g.nano instance type. We need an 
 instance because there's no cheap way to have https with something like an S3 bucket and lambdas.
 Everything that can be automated should be automated.
+
+The backend solution must consume almost no memory. Both frontend and backend should consume less than 512MB. So, no 
+explosive use of libraries. 
 
 ### Game data must be kept in another place than the client or backend hosts
 

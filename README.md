@@ -2,15 +2,17 @@
 
 ## Table of Contents
 
-* [About Bright Light](#about-bright-light)
-  * [What is Bright Light](#what-is-bright-light-)
-  * [Do we need another data specification format?](#do-we-need-yet-another-data-specification-to-describe-game-rules-)
-  * [The collaborative effort](#the-collaborative-effort)
-  * [The Bright Light Community](#the-bright-light-community)
-* [The application](#the-application)
-  * [Documentation](#documentation)
-  * [Technology](#technology)
-  * [Development collaboration](#development-collaboration)
+- [Bright Light](#bright-light)
+  - [Table of Contents](#table-of-contents)
+  - [About Bright Light](#about-bright-light)
+    - [What is Bright Light ?](#what-is-bright-light-)
+    - [Do we need yet another data specification to describe game rules ?](#do-we-need-yet-another-data-specification-to-describe-game-rules-)
+    - [The collaborative effort](#the-collaborative-effort)
+    - [The Bright Light community](#the-bright-light-community)
+  - [The application](#the-application)
+    - [Documentation](#documentation)
+    - [Technology](#technology)
+    - [Development collaboration](#development-collaboration)
 
 ## About Bright Light
 
@@ -24,7 +26,7 @@ heart.
 ### Do we need yet another data specification to describe game rules ?
 
 We may do, but we will start by working with the most currently accepted data format, honouring the incredible and massive
-work done by the Battlescribe community. Long term, it would be great that this data specification is evolved to serve
+work done by the BattleScribe community. Long term, it would be great that this data specification is evolved to serve
 the needs of those who write the information. We may even think of adopting another document language, although XML is
 fine for this use case.
 

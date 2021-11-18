@@ -53,7 +53,7 @@ everyone to feel welcome and in a secure, fun space. Nothing else matters, reall
 
 ### Documentation
 
-The `./doc` folder contains all the documentation generated for the project, including design documents, technology choices
+The `./documentation` folder contains all the documentation generated for the project, including design documents, technology choices
 and explanation, project milestones and goals. This project will make use of the different features of github to provide
 for issues reporting, but will try to keep documentation under version control as a single source of truth the closest
 to its source.

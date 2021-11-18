@@ -66,3 +66,9 @@ The system should not force a user to register to any account to make use of the
 be able to be stored in the user local machine and loaded from it. That's not to mean that rules and games system
 should be stored in the user's system, but the bands themselves should be able to be saved and loaded locally, so that
 the end-user's data is always in their 
+
+## Non Profit
+
+This system should never be done for profit. It is a community managed project to serve its own needs. So, no adds, no
+donations aside from the strictly necessary to keep the service running (whose cost will be transparent), no corporate
+backing (xDD, as if any corporation would back this). 

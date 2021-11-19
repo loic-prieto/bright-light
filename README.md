@@ -1,9 +1,8 @@
 # Bright Light
 
-## Table of Contents
+## Table of contents
 
 - [Bright Light](#bright-light)
-  - [Table of Contents](#table-of-contents)
   - [About Bright Light](#about-bright-light)
     - [What is Bright Light ?](#what-is-bright-light-)
     - [Do we need yet another data specification to describe game rules ?](#do-we-need-yet-another-data-specification-to-describe-game-rules-)

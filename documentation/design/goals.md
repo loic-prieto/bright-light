@@ -1,5 +1,17 @@
 # Design goals for the Bright Light application
 
+## Table of contents
+
+- [Design goals for the Bright Light application](#design-goals-for-the-bright-light-application)
+  - [What is Bright Light ?](#what-is-bright-light-)
+  - [Data is King](#data-is-king)
+  - [Support for different games](#support-for-different-games)
+  - [Supported platforms](#supported-platforms)
+  - [The narrative experience](#the-narrative-experience)
+  - [MVP + iterative approach](#mvp--iterative-approach)
+  - [The system should be as local as possible](#the-system-should-be-as-local-as-possible)
+  - [Non Profit](#non-profit)
+
 ## What is Bright Light ?
 
 It is an application that allows to create and manage bands for different tabletop games. 

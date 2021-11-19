@@ -1,8 +1,7 @@
 # Technical architecture
 
-## Table of Contents
+## Table of contents
 - [Technical architecture](#technical-architecture)
-  - [Table of Contents](#table-of-contents)
   - [Client and server](#client-and-server)
     - [Client](#client)
     - [Server](#server)

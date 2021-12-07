@@ -1,9 +1,12 @@
-
-<!--mat-list>
-    <mat-list-item *ngFor="let unit of currentRoster?.units">
-        {{unit.name}} - {{unit.type}}
-    </mat-list-item>
-</mat-list-->
-<ul>
-    <li *ngFor="let unit of currentRoster?.units">{{ unit.name }} - {{ unit.type }}</li>
-</ul>
+<mat-tab-group color="primary">
+    <mat-tab label="Units">
+        <mat-list>
+            <mat-list-item *ngFor="let unit of currentRoster?.units">
+                <h3 mat-line>{{ unit.name }} - {{ unit.type }}</h3>
+                <p mat-line>{{ unit.description }}</p>
+                <mat-divider></mat-divider>
+            </mat-list-item>
+        </mat-list>
+    </mat-tab>
+    <mat-tab label="Details">Formulary with details about the roster</mat-tab>
+</mat-tab-group>

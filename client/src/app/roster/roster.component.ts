@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Roster } from '../model/Roster';
+import { RosterService } from '../services/RosterService';
 
 @Component({
   selector: 'app-roster',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RosterComponent implements OnInit {
 
-  constructor() { }
+  currentRoster?: Roster;
+
+  constructor(private rosterService: RosterService) { }
 
   ngOnInit(): void {
+    this.currentRoster = this.rosterService.getMockRoster();
   }
 
 }

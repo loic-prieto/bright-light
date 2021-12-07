@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RosterComponent } from './roster/roster.component';
+import { MatListModule } from '@angular/material/list'
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { RosterComponent } from './roster/roster.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

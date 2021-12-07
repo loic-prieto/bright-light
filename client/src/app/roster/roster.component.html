@@ -1,6 +1,9 @@
+
+<!--mat-list>
+    <mat-list-item *ngFor="let unit of currentRoster?.units">
+        {{unit.name}} - {{unit.type}}
+    </mat-list-item>
+</mat-list-->
 <ul>
-    <li>Unit 1</li>
-    <li>Unit 2</li>
-    <li>Unit 3</li>
-    <li>Unit 4</li>
+    <li *ngFor="let unit of currentRoster?.units">{{ unit.name }} - {{ unit.type }}</li>
 </ul>

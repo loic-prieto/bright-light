@@ -1,0 +1,15 @@
+<mat-tree [dataSource]="catalogueTreeDatasource" [treeControl]="catalogueTreeControl">
+    <!-- Category nodes-->
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{catalogueTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+        {{node.name}}
+    </mat-tree-node>
+    <!-- Unit nodes-->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        {{node.name}}
+    </mat-tree-node>
+</mat-tree>

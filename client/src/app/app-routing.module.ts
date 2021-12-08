@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RosterComponent } from './roster/roster.component';
+import { RosterViewComponent } from './components/roster-view/roster-view.component';
 
 const routes: Routes = [
-  { path: 'roster', component: RosterComponent },
+  { path: 'roster', component: RosterViewComponent },
   { path:'', redirectTo:'roster', pathMatch: 'full' }
 ];
 

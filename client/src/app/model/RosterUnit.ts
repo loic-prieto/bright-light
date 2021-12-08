@@ -1,4 +1,4 @@
-export class Unit {
+export class RosterUnit {
     name: string;
     type: string;
     description: string;

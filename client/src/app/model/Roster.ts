@@ -1,13 +1,13 @@
-import { Unit } from "./Unit";
+import { RosterUnit } from "./RosterUnit";
 
 export class Roster {
-    units: Array<Unit>;
+    units: Array<RosterUnit>;
 
-    constructor(units: Array<Unit> = []){
+    constructor(units: Array<RosterUnit> = []){
         this.units = units;
     }
 
-    public addUnit(unit: Unit): void {
+    public addUnit(unit: RosterUnit): void {
         this.units.push(unit);
     }
 }

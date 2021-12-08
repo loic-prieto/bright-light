@@ -1,0 +1,12 @@
+
+
+<mat-drawer-container hasBackdrop="false">
+    <mat-drawer mode="side" #drawer>
+        <bl-catalogue-tree></bl-catalogue-tree>
+    </mat-drawer>
+    <mat-drawer-content>
+        <button mat-raised-button (click)="drawer.toggle()">Show Catalogue</button>
+        <bl-unit-list></bl-unit-list>
+    </mat-drawer-content>
+</mat-drawer-container>
+

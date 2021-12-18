@@ -5,9 +5,17 @@
         <bl-catalogue-tree></bl-catalogue-tree>
     </mat-drawer>
     <mat-drawer-content>
-        <button mat-raised-button (click)="catalogue.toggle()">Show Catalogue</button>
-        <button mat-raised-button (click)="detail.toggle()">Show Detail</button>
-        <bl-unit-list></bl-unit-list>
+        <div class="bl-grid-container">
+            <div class="bl-grid-cell side-menu-toggler left">
+                <button mat-raised-button class="panel-toggler vertical" (click)="catalogue.toggle()">&lt;</button>
+            </div>
+            <div class="bl-grid-cell content">
+                <bl-unit-list></bl-unit-list>
+            </div>
+            <div class="bl-grid-cell side-menu-toggler right">
+                <button mat-raised-button class="panel-toggler vertical" (click)="detail.toggle()">&gt;</button>
+            </div>
+        </div>
     </mat-drawer-content>
     <mat-drawer mode="side" position="end" #detail>
         Detail of the selected unit

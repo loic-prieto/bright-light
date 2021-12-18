@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { CatalogueTreeComponent } from './components/catalogue-tree/catalogue-tree.component'
 import { UnitListComponent } from './components/unit-list/unit-list.component';
@@ -33,7 +34,8 @@ import { RosterViewComponent } from './components/roster-view/roster-view.compon
     MatTabsModule,
     MatTreeModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

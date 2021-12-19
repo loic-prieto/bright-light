@@ -1,3 +1,5 @@
+import { CatalogueUnit } from "./CatalogueUnit";
+
 export class RosterUnit {
     name: string;
     type: string;
@@ -8,4 +10,9 @@ export class RosterUnit {
         this.type = type;
         this.description = description;
     }
+
+    public static fromCatalogueUnit(unit: CatalogueUnit ): RosterUnit {
+        return new RosterUnit("",unit.type,"");
+    }
+
 }

@@ -3,7 +3,11 @@
 ## Milestone Alpha 1
 
 * We can open the web app locally
-* we can create a band and add units to it from an in-memory fake catalogue
+* we can create a band
+* we can manage units in a band: 
+  * edit name and description
+  * remove unit
+  * add unit from in-memory fake catalogue
 * the project is set up with a strong foundation to minimise future development friction
 
 ## Milestone Alpha 2

@@ -2,18 +2,22 @@
 
 <mat-drawer-container hasBackdrop="false">
     <mat-drawer mode="side" position="start" #catalogue>
-        <bl-catalogue-tree></bl-catalogue-tree>
+        <bl-catalogue-panel></bl-catalogue-panel>
     </mat-drawer>
     <mat-drawer-content>
         <div class="bl-grid-container">
             <div class="bl-grid-cell side-menu-toggler left">
-                <button mat-raised-button class="panel-toggler vertical" (click)="catalogue.toggle()">&lt;</button>
+                <button mat-raised-button class="panel-toggler vertical" (click)="catalogue.toggle()">
+                    {{ catalogue.opened ? "&lt;" : "&gt;" }}
+                </button>
             </div>
             <div class="bl-grid-cell content">
                 <bl-unit-list></bl-unit-list>
             </div>
             <div class="bl-grid-cell side-menu-toggler right">
-                <button mat-raised-button class="panel-toggler vertical" (click)="detail.toggle()">&gt;</button>
+                <button mat-raised-button class="panel-toggler vertical" (click)="detail.toggle()">
+                    {{ detail.opened ? "&gt;" : "&lt;" }}
+                </button>
             </div>
         </div>
     </mat-drawer-content>

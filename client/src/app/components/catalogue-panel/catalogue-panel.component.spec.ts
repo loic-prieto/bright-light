@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CatalogueTreeComponent } from './catalogue-tree.component';
+import { CatalogueTreeComponent } from './catalogue-panel.component';
 
 describe('CatalogueTreeComponent', () => {
   let component: CatalogueTreeComponent;

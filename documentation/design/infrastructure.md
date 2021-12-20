@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Infrastructure components](#infrastructure-components)
+  - [Table of contents](#table-of-contents)
   - [Overview](#overview)
   - [The host](#the-host)
   - [The backend server](#the-backend-server)
@@ -23,7 +24,8 @@ In theory anyone can host this application. It is mostly stateless for now, and 
 local machine, so any server that deploys this application would act as a mirror for the same given version. That being
 said, the end user has to trust a different server that the application is not malicious.
 
-We're using AWS as a cloud provider for all infrastructure components as of this time.
+We're using AWS as a cloud provider for all infrastructure components as of this time. Another option for the future may be
+to use a EU server provider like Scaleway.
 
 ## The host
 

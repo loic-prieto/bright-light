@@ -1,12 +1,30 @@
 <mat-tab-group color="primary">
     <mat-tab label="Units">
         <mat-list>
-            <mat-list-item *ngFor="let unit of currentRoster?.units">
-                <h3 mat-line>{{ unit.name }} - {{ unit.type }}</h3>
-                <p mat-line>{{ unit.description }}</p>
+            <mat-list-item *ngFor="let unit of currentRoster?.units" (contextmenu)="openUnitMenu($event,unit)">
+                <h3 mat-line>{{ unit.name? unit.name + " - " : "" }}{{ unit.type }}</h3>
+                <p *ngIf="unit.description" mat-line>
+                    {{ unit.description }}
+                </p>
+                <button [matMenuTriggerFor]="rosterUnitMenu" [matMenuTriggerData]="{unit:unit}">
+                    <mat-icon>menu</mat-icon>
+                </button>
                 <mat-divider></mat-divider>
             </mat-list-item>
         </mat-list>
     </mat-tab>
     <mat-tab label="Details">Formulary with details about the roster</mat-tab>
 </mat-tab-group>
+
+<mat-menu #rosterUnitMenu="matMenu">
+    <ng-template matMenuContent let-unit="unit">
+        <button mat-menu-item (click)="openRenameUnitDialog(unit)">Rename</button>
+        <button mat-menu-item>Notes</button>
+        <button mat-menu-item>Display view</button>
+    </ng-template>
+</mat-menu>
+<!-- This is needed so that the context menu opens in the mouse position, to be reimplemented as a custom component-->
+<div style="visibility: hidden; position: fixed;" 
+    [style.left]="rosterUnitMenuPosition.x" 
+    [style.top]="rosterUnitMenuPosition.y" 
+    [matMenuTriggerFor]="rosterUnitMenu"></div> 

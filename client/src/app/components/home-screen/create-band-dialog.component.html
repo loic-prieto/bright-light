@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Band Creation</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Band Name</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.bandName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Catalogue</mat-label>
+    <mat-select required>
+      <mat-option>--</mat-option>
+      <mat-option 
+        *ngFor="let catalogueListItem of availableCatalogues" 
+        [(ngModel)]="data.selectedCatalogue" 
+        value="catalogueListItem">
+        {{ catalogueListItem.name }} - {{ catalogueListItem.version }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="{bandName:data.bandName,selectedCatalogue: data.selectedCatalogue,confirmed:true}">Confirm</button>
+</div>

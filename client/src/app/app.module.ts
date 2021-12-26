@@ -17,10 +17,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 import { CataloguePanelComponent } from './components/catalogue-panel/catalogue-panel.component'
 import { UnitListComponent, UnitListRenameUnitDialogComponent } from './components/unit-list/unit-list.component';
 import { RosterViewComponent } from './components/roster-view/roster-view.component';
+import { HomeScreenComponent } from './components/home-screen/home-screen.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { RosterViewComponent } from './components/roster-view/roster-view.compon
     UnitListComponent,
     CataloguePanelComponent,
     RosterViewComponent,
-    UnitListRenameUnitDialogComponent
+    UnitListRenameUnitDialogComponent,
+    HomeScreenComponent
   ],
   imports: [
     // General Angular modules for web
@@ -47,7 +51,9 @@ import { RosterViewComponent } from './components/roster-view/roster-view.compon
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule,
+    MatSelectModule
   ],
   providers: [
     // Material form field default style to fill as recommended

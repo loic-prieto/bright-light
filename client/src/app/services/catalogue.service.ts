@@ -16,4 +16,13 @@ export class CatalogueService {
       new CatalogueUnit("Lobotomised Penal Serfs",50,"Elite")
     ])
   }
+
+  public getAvailableCatalogues(): Array<CatalogueListItem> {
+    return [ {name: "fake",version: "1.0.0"} ]
+  }
+}
+
+export interface CatalogueListItem {
+  name: string,
+  version: string
 }

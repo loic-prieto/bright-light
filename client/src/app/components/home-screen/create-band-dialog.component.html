@@ -1,23 +1,27 @@
 <h1 mat-dialog-title>Band Creation</h1>
-<div mat-dialog-content>
+<div mat-dialog-content class="bl-vertical-form">
   <mat-form-field>
     <mat-label>Band Name</mat-label>
-    <input matInput cdkFocusInitial [(ngModel)]="data.bandName">
+    <input matInput cdkFocusInitial [(ngModel)]="data.bandName" [formControl]="bandNameControl">
+    <mat-error *ngIf="bandNameControl.invalid">You must write a band name</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Catalogue</mat-label>
-    <mat-select required>
-      <mat-option>--</mat-option>
+    <mat-select [formControl]="catalogueControl">
       <mat-option 
         *ngFor="let catalogueListItem of availableCatalogues" 
-        [(ngModel)]="data.selectedCatalogue" 
+        [(ngModel)]="data.selectedCatalogue" ngDefaultControl
         value="catalogueListItem">
         {{ catalogueListItem.name }} - {{ catalogueListItem.version }}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="catalogueControl.invalid">A catalogue is required</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="{bandName:data.bandName,selectedCatalogue: data.selectedCatalogue,confirmed:true}">Confirm</button>
+  <button mat-button [disabled]="catalogueControl.invalid || bandNameControl.invalid"
+    [mat-dialog-close]="{bandName:data.bandName,selectedCatalogue: data.selectedCatalogue,confirmed:true}">
+    Confirm
+  </button>
 </div>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CataloguePanelComponent } from './components/catalogue-panel/catalogue-panel.component'
 import { UnitListComponent, UnitListRenameUnitDialogComponent } from './components/unit-list/unit-list.component';
 import { RosterViewComponent } from './components/roster-view/roster-view.component';
-import { HomeScreenComponent } from './components/home-screen/home-screen.component';
+import { HomeScreenComponent} from './components/home-screen/home-screen.component';
+import { HomeScreenCreateBandDialogComponent} from './components/home-screen/home-screen-create-band-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HomeScreenComponent } from './components/home-screen/home-screen.compon
     CataloguePanelComponent,
     RosterViewComponent,
     UnitListRenameUnitDialogComponent,
-    HomeScreenComponent
+    HomeScreenComponent,
+    HomeScreenCreateBandDialogComponent
   ],
   imports: [
     // General Angular modules for web
@@ -40,6 +42,7 @@ import { HomeScreenComponent } from './components/home-screen/home-screen.compon
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     // Material modules
     MatListModule,
     MatToolbarModule,

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { Roster } from 'src/app/model/Roster';
 import { RosterUnit } from 'src/app/model/RosterUnit';
 import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
-import { CatalogueListItem, CatalogueService } from 'src/app/services/catalogue.service';
+import { CatalogueService } from 'src/app/services/catalogue.service';
 import { AlertDialog } from '../dialogs/alert/alert-dialog.component';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'bl-roster-view',
@@ -15,29 +16,34 @@ import { AlertDialog } from '../dialogs/alert/alert-dialog.component';
 })
 export class RosterViewComponent implements OnInit {
 
-  roster?: Roster;
+  roster: Roster;
   catalogue?: UnitCatalogue
 
   constructor(
-    private route: ActivatedRoute, 
+    private _router: Router, 
+    private _location: Location,
     private catalogueService: CatalogueService,
-    private _dialog: MatDialog) {}
+    private _dialog: MatDialog) {
+      let navigation = _router.getCurrentNavigation()
+      if(navigation?.extras?.state) {
+        this.roster = navigation.extras.state['roster']
+        if(!this.roster) {
+          throw new Error("A roster has not been given to the component")
+        }
+      } else {
+        throw new Error("The roster view component cannot find the roster that should be provided in the navigation state")
+      }
+    }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data=>{
-      this.roster = data['roster'] as Roster
-      let catalogueInfo = this.roster.getCatalogue()
-      let fullCatalogueResult = this.catalogueService.getCatalogue(catalogueInfo.name,catalogueInfo.version)
-      // As soon as we learn how to navigate back change this ugliness
-      if(fullCatalogueResult.isNothing()) {
-        AlertDialog.open(this._dialog,{
-          title:"Error",
-          message:`Could not find catalogue ${catalogueInfo.name}-${catalogueInfo.version}`,
-          actionMessage: "Drat!"})
-      }
+    let catalogueInfo = this.roster.getCatalogue()
+    let fullCatalogueResult = this.catalogueService.getCatalogue(catalogueInfo.name,catalogueInfo.version)
+    if(fullCatalogueResult.isNothing()) {
+      AlertDialog.open(this._dialog,`Could not find catalogue ${catalogueInfo.name}-${catalogueInfo.version}`,"Drat!")
+      this._location.back()
+    }
 
-      this.catalogue = fullCatalogueResult.extract()
-    })
+    this.catalogue = fullCatalogueResult.extract()
   }
 
   addUnit(unit: CatalogueUnit) {

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Roster } from 'src/app/model/Roster';
+import { AlertDialog } from '../dialogs/alert/alert-dialog.component';
 import { CreateBandDialogData, HomeScreenCreateBandDialogComponent } from './home-screen-create-band-dialog.component';
-
 /**
  * This is the component that is opened when the bright light client is opened.
  * It offers options to create a new band, saving or loading
@@ -15,21 +16,27 @@ import { CreateBandDialogData, HomeScreenCreateBandDialogComponent } from './hom
 export class HomeScreenComponent {
 
   constructor(
-    private _snackBar: MatSnackBar,
-    private createBandDialog: MatDialog,
+    private _dialog: MatDialog,
+    private router: Router
     ) { }
 
   createNewBand() {
-    const dialogRef: MatDialogRef<HomeScreenCreateBandDialogComponent,CreateBandDialogData> = this.createBandDialog.open(HomeScreenCreateBandDialogComponent,{data:{}} as MatDialogConfig<CreateBandDialogData>)
+    const dialogRef: MatDialogRef<HomeScreenCreateBandDialogComponent,CreateBandDialogData> = this._dialog.open(HomeScreenCreateBandDialogComponent,{data:{bandName:"",selectedCatalogue:{},confirmed:false}} as MatDialogConfig<CreateBandDialogData>)
     dialogRef.afterClosed().subscribe(result => {
       if(result?.confirmed) {
-        this._snackBar.open(`Good Job creating band ${result.bandName}!`,"Thanks!",{duration: 2000})
+        if (result.bandName && result?.selectedCatalogue) { // narrowing clause, this should never be false
+          let roster = new Roster(result.bandName, result.selectedCatalogue,[]);
+          this.router.navigate(['roster'],{state:{roster:roster}}).catch((error)=>{
+            console.log(`Error while opening roster: ${error}`)
+            AlertDialog.open(this._dialog,`Could not open the roster: ${error}`,"Fuck")
+          })
+        }
       }
     });
   }
 
   loadBand() {
-    this._snackBar.open('Not implemented yet',"That's a shame",{duration: 3000})
+    AlertDialog.open(this._dialog,"This functionality is not implemented yet","That's a shame")
   }
 
 }

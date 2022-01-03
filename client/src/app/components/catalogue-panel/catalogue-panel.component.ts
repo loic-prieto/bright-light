@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
 
@@ -16,7 +16,7 @@ export class CataloguePanelComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.catalogue) {
-      throw new Error("A catalogue should have been provided by the including component of the catalogue panel")
+      throw new Error("The component should have been provided with a catalogue, it cannot initialize otherwise")
     }
     this.categoryClassification = _build_unit_type_classification(this.catalogue)
   }

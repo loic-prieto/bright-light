@@ -7,11 +7,11 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Catalogue</mat-label>
-    <mat-select [formControl]="catalogueControl">
+    <mat-select [formControl]="catalogueControl" #selectedCatalogueOption [(ngModel)]="data.selectedCatalogue">
       <mat-option 
         *ngFor="let catalogueListItem of availableCatalogues" 
-        [(ngModel)]="data.selectedCatalogue" ngDefaultControl
-        value="catalogueListItem">
+        ngDefaultControl
+        [value]="catalogueListItem">
         {{ catalogueListItem.name }} - {{ catalogueListItem.version }}
       </mat-option>
     </mat-select>

@@ -8,10 +8,12 @@ import { Maybe } from 'purify-ts'
 })
 export class CatalogueService {
 
-  inMemoryCatalogueDatabase = new Map<CatalogueKey,UnitCatalogue>()
+  // Forget the power of using objects as keys in maps, for so much has been forgotten never to 
+  // be relearned...
+  inMemoryCatalogueDatabase = new Map<string,UnitCatalogue>()
 
   constructor() {
-    this.inMemoryCatalogueDatabase.set({name: "fake", version: "1.0.0"},new UnitCatalogue("fake","1.0.0",[
+    this.inMemoryCatalogueDatabase.set(catalogueKey("fake","1.0.0"),new UnitCatalogue("fake","1.0.0",[
       new CatalogueUnit("Edged Elves Fighters",100,"Troops"),
       new CatalogueUnit("Shark Jumpers",200,"Fast Attack"),
       new CatalogueUnit("Lobotomised Penal Serfs",50,"Elite")
@@ -19,8 +21,7 @@ export class CatalogueService {
    }
 
    public getCatalogue(name: string, version: string): Maybe<UnitCatalogue> {
-    return Maybe.fromNullable(
-      this.inMemoryCatalogueDatabase.get({name:name,version:version}))
+    return Maybe.fromNullable(this.inMemoryCatalogueDatabase.get(catalogueKey(name,version)))
    }
 
   public getAvailableCatalogues(): Array<CatalogueListItem> {
@@ -33,7 +34,6 @@ export interface CatalogueListItem {
   version: string
 }
 
-interface CatalogueKey {
-  name: string
-  version: string
+function catalogueKey(catalogueName: string, catalogueVersion: string): string {
+  return `${catalogueName}-${catalogueVersion}`
 }

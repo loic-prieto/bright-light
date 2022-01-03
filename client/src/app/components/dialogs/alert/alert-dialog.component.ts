@@ -9,8 +9,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angu
 export class AlertDialog {
 
     public static open(
-        dialog: MatDialog, params: AlertDialogData): MatDialogRef<AlertDialog,AlertDialogData> {
-        return dialog.open(AlertDialog,{data: params} as MatDialogConfig<AlertDialogData>)
+        dialog: MatDialog, message: string, actionMessage: string = "Ok", title: string="Error"): MatDialogRef<AlertDialog,AlertDialogData> {
+        return dialog.open(AlertDialog,{data: {title: title,message: message, actionMessage: actionMessage}} as MatDialogConfig<AlertDialogData>)
     }
 
     constructor(

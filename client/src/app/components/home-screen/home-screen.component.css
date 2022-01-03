@@ -3,10 +3,12 @@
     height: 100%;
     align-items: center;
     justify-content: space-around;
+    background-color: #303030;
 }
 
 button {
     text-align: center;
     width: 30%;
     height: 40%;
+    color:#fff;
 }

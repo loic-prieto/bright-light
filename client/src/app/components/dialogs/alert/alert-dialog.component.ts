@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angu
 @Component({
     selector: 'bl-dialogs-alert',
     templateUrl: './alert-dialog.component.html',
-    styleUrls: ['./alert-dialog.component.css']
+    styleUrls: ['./alert-dialog.component.scss']
   })
 export class AlertDialog {
 

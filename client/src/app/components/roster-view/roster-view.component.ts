@@ -1,13 +1,14 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Maybe } from 'purify-ts';
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { Roster } from 'src/app/model/Roster';
 import { RosterUnit } from 'src/app/model/RosterUnit';
 import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
 import { CatalogueService } from 'src/app/services/catalogue.service';
 import { AlertDialog } from '../dialogs/alert/alert-dialog.component';
-import { Location } from '@angular/common'
 
 @Component({
   selector: 'bl-roster-view',
@@ -40,7 +41,10 @@ export class RosterViewComponent implements OnInit {
     let fullCatalogueResult = this.catalogueService.getCatalogue(catalogueInfo.name,catalogueInfo.version)
     if(fullCatalogueResult.isNothing()) {
       AlertDialog.open(this._dialog,`Could not find catalogue ${catalogueInfo.name}-${catalogueInfo.version}`,"Drat!")
-      this._location.back()
+        .afterClosed().subscribe(()=>{
+          this._location.back()
+        })
+      
     }
 
     this.catalogue = fullCatalogueResult.extract()

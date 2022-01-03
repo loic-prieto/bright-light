@@ -5,7 +5,7 @@
         <bl-catalogue-panel [catalogue]="catalogue" (onUnitAdded)="addUnit($event)"></bl-catalogue-panel>
     </mat-drawer>
     <mat-drawer-content>
-        <div class="bl-grid-container">
+        <div class="bl-grid-container bl-full-height">
             <div class="bl-grid-cell side-menu-toggler left">
                 <button mat-raised-button class="panel-toggler vertical" (click)="catalogueDrawer.toggle()">
                     {{ catalogueDrawer.opened ? "&lt;" : "&gt;" }}

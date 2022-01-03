@@ -18,6 +18,10 @@ export class Roster {
     public addUnit(unit: RosterUnit): void {
         this.units.push(unit);
     }
+
+    public removeUnit(unit: RosterUnit): void {
+        this.units.splice(this.units.indexOf(unit),1)
+    }
 }
 
 /**

@@ -21,6 +21,8 @@
         <button mat-menu-item (click)="openRenameUnitDialog(unit)">Rename</button>
         <button mat-menu-item>Notes</button>
         <button mat-menu-item>Display view</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="removeUnit(unit)">Remove from roster</button>
     </ng-template>
 </mat-menu>
 <!-- This is needed so that the context menu opens in the mouse position, to be reimplemented as a custom component-->

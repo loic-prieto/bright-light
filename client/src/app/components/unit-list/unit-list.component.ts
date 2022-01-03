@@ -18,13 +18,18 @@ export class UnitListComponent implements OnInit {
   @ViewChild(MatMenuTrigger,{static: true}) rosterUnitMenu!:MatMenuTrigger;
   
   constructor(
-    private renameUnitDialog: MatDialog) {
+    private _dialog: MatDialog) {
    }
   
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // This component cannot start if roster is not given
+    if(!this.roster) {
+      throw new Error("A roster must be provided to the unit list component to be able to start")
+    }
+   }
 
   openRenameUnitDialog(unit: RosterUnit): void {
-    const dialogRef = this.renameUnitDialog.open(UnitListRenameUnitDialogComponent, {
+    const dialogRef = this._dialog.open(UnitListRenameUnitDialogComponent, {
       width: '250px',
       data: {name: unit.name},
     });
@@ -44,6 +49,12 @@ export class UnitListComponent implements OnInit {
     console.log(`x: ${this.rosterUnitMenuPosition.x}, y: ${this.rosterUnitMenuPosition.y}`)
     this.rosterUnitMenu.menuData = {unit: unit}
     this.rosterUnitMenu.openMenu()
+  }
+
+  removeUnit(unit: RosterUnit): void {
+    if(this.roster) {
+      this.roster.removeUnit(unit)
+    }
   }
 
 }

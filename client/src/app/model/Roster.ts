@@ -2,8 +2,17 @@ import { RosterUnit } from "./RosterUnit";
 
 export class Roster {
     constructor(
-        private catalogue: ShortCatalogue, 
+        public name: string,
+        private catalogue: ShortCatalogue,
         private units: Array<RosterUnit> = []){
+    }
+
+    public getCatalogue(): Readonly<ShortCatalogue> {
+       return this.catalogue
+    }
+
+    public getUnits(): Readonly<Array<RosterUnit>> {
+        return this.units as Readonly<Array<RosterUnit>>
     }
 
     public addUnit(unit: RosterUnit): void {

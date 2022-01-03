@@ -1,8 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
-import { CatalogueService } from 'src/app/services/catalogue.service';
-import { RosterViewService } from 'src/app/services/roster-view.service';
 
 @Component({
   selector: 'bl-catalogue-panel',
@@ -11,29 +9,30 @@ import { RosterViewService } from 'src/app/services/roster-view.service';
 })
 export class CataloguePanelComponent implements OnInit {
 
-  categoryClassification: Array<CategoryUnits> = [];
+  @Input() catalogue?: UnitCatalogue
+  @Output() onUnitAdded = new EventEmitter<CatalogueUnit>()
 
-  @Output() onUnitAdded = new EventEmitter<UnitCatalogue>();
-
-  constructor(private catalogService: CatalogueService, private rosterViewService: RosterViewService) { }
+  categoryClassification: Array<CategoryUnits> = []
 
   ngOnInit(): void {
-    let catalogueData = this.catalogService.getFakeCatalogue();
-    this.categoryClassification = _build_unit_type_classification(catalogueData)
+    if(!this.catalogue) {
+      throw new Error("A catalogue should have been provided by the including component of the catalogue panel")
+    }
+    this.categoryClassification = _build_unit_type_classification(this.catalogue)
   }
 
   addUnit(unit: CatalogueUnit) {
-    this.rosterViewService.emitUnitAdded(unit);
+    this.onUnitAdded.emit(unit)
   }
   
 }
 
 function _build_unit_type_classification(catalogueData: UnitCatalogue): Array<CategoryUnits> {
-  return Array.from(catalogueData.unitList.reduce((categorySet, unit) => categorySet.add(unit.category),new Set<string>()))
+  return Array.from(catalogueData.getUnitList().reduce((categorySet, unit) => categorySet.add(unit.category),new Set<string>()))
     .map((category)=> { 
       return {
         category: category, 
-        units: catalogueData.unitList.filter((unit)=>unit.category === category)
+        units: catalogueData.getUnitList().filter((unit)=>unit.category === category)
       }
     });
 }

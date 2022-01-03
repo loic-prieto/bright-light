@@ -1,7 +1,7 @@
 <mat-tab-group color="primary">
     <mat-tab label="Units">
         <mat-list>
-            <mat-list-item *ngFor="let unit of currentRoster?.units" (contextmenu)="openUnitMenu($event,unit)">
+            <mat-list-item *ngFor="let unit of roster?.getUnits()" (contextmenu)="openUnitMenu($event,unit)">
                 <h3 mat-line>{{ unit.name? unit.name + " - " : "" }}{{ unit.type }}</h3>
                 <p *ngIf="unit.description" mat-line>
                     {{ unit.description }}

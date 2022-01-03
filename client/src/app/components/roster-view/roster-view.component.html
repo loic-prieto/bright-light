@@ -1,27 +1,27 @@
 
 
 <mat-drawer-container hasBackdrop="false">
-    <mat-drawer mode="side" position="start" #catalogue>
-        <bl-catalogue-panel></bl-catalogue-panel>
+    <mat-drawer mode="side" position="start" #catalogueDrawer>
+        <bl-catalogue-panel [catalogue]="catalogue" (onUnitAdded)="addUnit($event)"></bl-catalogue-panel>
     </mat-drawer>
     <mat-drawer-content>
         <div class="bl-grid-container">
             <div class="bl-grid-cell side-menu-toggler left">
-                <button mat-raised-button class="panel-toggler vertical" (click)="catalogue.toggle()">
-                    {{ catalogue.opened ? "&lt;" : "&gt;" }}
+                <button mat-raised-button class="panel-toggler vertical" (click)="catalogueDrawer.toggle()">
+                    {{ catalogueDrawer.opened ? "&lt;" : "&gt;" }}
                 </button>
             </div>
             <div class="bl-grid-cell content">
-                <bl-unit-list></bl-unit-list>
+                <bl-unit-list [roster]="roster"></bl-unit-list>
             </div>
             <div class="bl-grid-cell side-menu-toggler right">
-                <button mat-raised-button class="panel-toggler vertical" (click)="detail.toggle()">
-                    {{ detail.opened ? "&gt;" : "&lt;" }}
+                <button mat-raised-button class="panel-toggler vertical" (click)="detailDrawer.toggle()">
+                    {{ detailDrawer.opened ? "&gt;" : "&lt;" }}
                 </button>
             </div>
         </div>
     </mat-drawer-content>
-    <mat-drawer mode="side" position="end" #detail>
+    <mat-drawer mode="side" position="end" #detailDrawer>
         Detail of the selected unit
     </mat-drawer>
 </mat-drawer-container>

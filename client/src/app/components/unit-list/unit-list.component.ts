@@ -1,11 +1,8 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { RosterUnit } from 'src/app/model/RosterUnit';
-import { RosterViewService } from 'src/app/services/roster-view.service';
 import { Roster } from '../../model/Roster';
-import { RosterService } from '../../services/roster.service';
 
 @Component({
   selector: 'bl-unit-list',
@@ -14,26 +11,17 @@ import { RosterService } from '../../services/roster.service';
 })
 export class UnitListComponent implements OnInit {
 
-  currentRoster?: Roster
+  @Input() roster?: Roster
+
   rosterUnitMenuPosition = {x:"0px",y:"0px"}
 
   @ViewChild(MatMenuTrigger,{static: true}) rosterUnitMenu!:MatMenuTrigger;
   
   constructor(
-    private rosterService: RosterService,
-    private rosterViewService: RosterViewService,
     private renameUnitDialog: MatDialog) {
-
-    this.rosterViewService.unitAdded$.subscribe((unit)=>this.addUnit(unit))
    }
   
-   private addUnit(unit: CatalogueUnit) {
-     this.currentRoster?.addUnit(RosterUnit.fromCatalogueUnit(unit))
-   }
-
-  ngOnInit(): void {
-    this.currentRoster = this.rosterService.getMockRoster()
-  }
+  ngOnInit(): void { }
 
   openRenameUnitDialog(unit: RosterUnit): void {
     const dialogRef = this.renameUnitDialog.open(UnitListRenameUnitDialogComponent, {

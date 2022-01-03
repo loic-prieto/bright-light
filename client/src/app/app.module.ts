@@ -25,6 +25,7 @@ import { UnitListComponent, UnitListRenameUnitDialogComponent } from './componen
 import { RosterViewComponent } from './components/roster-view/roster-view.component';
 import { HomeScreenComponent} from './components/home-screen/home-screen.component';
 import { HomeScreenCreateBandDialogComponent} from './components/home-screen/home-screen-create-band-dialog.component';
+import { AlertDialog } from './components/dialogs/alert/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { HomeScreenCreateBandDialogComponent} from './components/home-screen/hom
     RosterViewComponent,
     UnitListRenameUnitDialogComponent,
     HomeScreenComponent,
-    HomeScreenCreateBandDialogComponent
+    HomeScreenCreateBandDialogComponent,
+    // Standard dialogs
+    AlertDialog
   ],
   imports: [
     // General Angular modules for web

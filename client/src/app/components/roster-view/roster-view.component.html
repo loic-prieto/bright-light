@@ -6,7 +6,9 @@
     </mat-drawer>
     <mat-drawer-content>
         <div class="bl-grid-container bl-full-height">
-            <div class="bl-grid-cell side-menu-toggler left">
+            <div class="bl-grid-cell side-menu-toggler left" 
+                matTooltip="Click to toggle catalogue panel view"
+                matTooltipPosition="right">
                 <button mat-raised-button class="panel-toggler vertical" (click)="catalogueDrawer.toggle()">
                     {{ catalogueDrawer.opened ? "&lt;" : "&gt;" }}
                 </button>
@@ -14,7 +16,9 @@
             <div class="bl-grid-cell content">
                 <bl-unit-list [roster]="roster"></bl-unit-list>
             </div>
-            <div class="bl-grid-cell side-menu-toggler right">
+            <div class="bl-grid-cell side-menu-toggler right" 
+                matTooltip="Click to toggle unit detail view"
+                matTooltipPosition="left">
                 <button mat-raised-button class="panel-toggler vertical" (click)="detailDrawer.toggle()">
                     {{ detailDrawer.opened ? "&gt;" : "&lt;" }}
                 </button>

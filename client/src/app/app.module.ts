@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CataloguePanelComponent } from './components/catalogue-panel/catalogue-panel.component'
 import { UnitListComponent, UnitListRenameUnitDialogComponent } from './components/unit-list/unit-list.component';
@@ -59,7 +60,8 @@ import { AlertDialog } from './components/dialogs/alert/alert-dialog.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ],
   providers: [
     // Material form field default style to fill as recommended

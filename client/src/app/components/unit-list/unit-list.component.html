@@ -18,8 +18,8 @@
 
 <mat-menu #rosterUnitMenu="matMenu">
     <ng-template matMenuContent let-unit="unit">
-        <button mat-menu-item (click)="openRenameUnitDialog(unit)">Rename</button>
-        <button mat-menu-item>Notes</button>
+        <button mat-menu-item (click)="openRenameUnitDialog(unit)">Name</button>
+        <button mat-menu-item (click)="openUnitNotesDialog(unit)">Notes</button>
         <button mat-menu-item>Display view</button>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="removeUnit(unit)">Remove from roster</button>

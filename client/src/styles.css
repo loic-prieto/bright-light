@@ -13,3 +13,11 @@ body {
  .bl-grid-cell.content {
      flex: auto;
  }
+
+ .mat-form-field.bl-resizable .mat-form-field-infix {
+     width: unset;
+ }
+
+ textarea.mat-input-element.bl-resizable {
+     resize: both;
+ }

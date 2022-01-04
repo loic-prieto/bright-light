@@ -22,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CataloguePanelComponent } from './components/catalogue-panel/catalogue-panel.component'
-import { UnitListComponent, UnitListRenameUnitDialogComponent } from './components/unit-list/unit-list.component';
+import { UnitListComponent, UnitListRenameUnitDialogComponent, UnitListUnitNotesDialogComponent } from './components/unit-list/unit-list.component';
 import { RosterViewComponent } from './components/roster-view/roster-view.component';
 import { HomeScreenComponent} from './components/home-screen/home-screen.component';
 import { HomeScreenCreateBandDialogComponent} from './components/home-screen/home-screen-create-band-dialog.component';
@@ -35,6 +35,7 @@ import { AlertDialog } from './components/dialogs/alert/alert-dialog.component';
     CataloguePanelComponent,
     RosterViewComponent,
     UnitListRenameUnitDialogComponent,
+    UnitListUnitNotesDialogComponent,
     HomeScreenComponent,
     HomeScreenCreateBandDialogComponent,
     // Standard dialogs

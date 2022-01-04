@@ -40,6 +40,17 @@ export class UnitListComponent implements OnInit {
     });
   }
 
+  openUnitNotesDialog(unit: RosterUnit): void {
+    const dialogRef = this._dialog.open(UnitListUnitNotesDialogComponent, {
+      data: {description: unit.description},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.confirmed) {
+        unit.description = result.description
+      }
+    });
+  }
+
   openUnitMenu(event: Event, unit: RosterUnit): void {
     event.preventDefault(); 
     let mevent = event as MouseEvent
@@ -75,5 +86,23 @@ export class UnitListRenameUnitDialogComponent {
 
   onCancel(): void {
     this.dialogRef.close({confirmed:false,name:this.data.name});
+  }
+}
+
+export interface UnitNotesDialogData {
+  description: string;
+}
+@Component({
+  selector: 'bl-unit-list-unit-notes-dialog',
+  templateUrl: './unit-notes-dialog.component.html',
+})
+export class UnitListUnitNotesDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<UnitListUnitNotesDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: UnitNotesDialogData,
+  ) {}
+
+  onCancel(): void {
+    this.dialogRef.close({confirmed:false,description:this.data.description});
   }
 }

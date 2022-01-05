@@ -8,8 +8,6 @@ import { CatalogueUnit } from '../model/CatalogueUnit';
  */
  @Injectable()
  export class RosterViewService {
-    constructor() { }
-
     private unitAddedSource = new Subject<CatalogueUnit>();
     unitAdded$ = this.unitAddedSource.asObservable();
 

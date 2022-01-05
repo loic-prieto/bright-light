@@ -25,7 +25,7 @@ export class HomeScreenComponent {
     dialogRef.afterClosed().subscribe(result => {
       if(result?.confirmed) {
         if (result.bandName && result?.selectedCatalogue) { // narrowing clause, this should never be false
-          let roster = new Roster(result.bandName, result.selectedCatalogue,[]);
+          const roster = new Roster(result.bandName, result.selectedCatalogue,[]);
           this.router.navigate(['roster'],{state:{roster:roster}}).catch((error)=>{
             console.log(`Error while opening roster: ${error}`)
             AlertDialog.open(this._dialog,`Could not open the roster: ${error}`,"Fuck")

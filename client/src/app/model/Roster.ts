@@ -1,5 +1,9 @@
 import { RosterUnit } from "./RosterUnit";
 
+/**
+ * A roster contains a selection of units with its configurations.
+ * This is the main focus of the Bright Light application, to create and edit rosters.
+ */
 export class Roster {
     constructor(
         public name: string,

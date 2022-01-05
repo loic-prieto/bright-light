@@ -1,6 +1,12 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
+/**
+ * This is an utility component to be able to easily open alert dialogs in
+ * a standard way across the application. It is not designed to be used as a
+ * component but rather invoke the static method `open`, which depends on 
+ * being provided an injected MatDialog instance.
+ */
 @Component({
     selector: 'bl-dialogs-alert',
     templateUrl: './alert-dialog.component.html',

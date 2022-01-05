@@ -3,6 +3,9 @@ import { CatalogueUnit } from '../model/CatalogueUnit';
 import { UnitCatalogue } from '../model/UnitCatalogue';
 import { Maybe } from 'purify-ts'
 
+/**
+ * Provides functions related to managing catalogues
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +16,7 @@ export class CatalogueService {
   inMemoryCatalogueDatabase = new Map<string,UnitCatalogue>()
 
   constructor() {
+    // For this milestone, we're just building a fake in-memory database
     this.inMemoryCatalogueDatabase.set(catalogueKey("fake","1.0.0"),new UnitCatalogue("fake","1.0.0",[
       new CatalogueUnit("Edged Elves Fighters",100,"Troops"),
       new CatalogueUnit("Shark Jumpers",200,"Fast Attack"),
@@ -29,6 +33,9 @@ export class CatalogueService {
   }
 }
 
+/**
+ * A simplified projection of a Catalogue to be used in lists
+ */
 export interface CatalogueListItem {
   name: string,
   version: string

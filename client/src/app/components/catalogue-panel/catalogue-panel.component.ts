@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
 
+/**
+ * Displays a panel with the units and configurations defined in a Catalogue
+ * and allows to add units to a roster from it.
+ */
 @Component({
   selector: 'bl-catalogue-panel',
   templateUrl: './catalogue-panel.component.html',

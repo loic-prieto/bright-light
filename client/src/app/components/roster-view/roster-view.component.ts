@@ -10,6 +10,10 @@ import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
 import { CatalogueService } from 'src/app/services/catalogue.service';
 import { AlertDialog } from '../dialogs/alert/alert-dialog.component';
 
+/**
+ * Allows the full edition of a roster. 
+ * This is the main view of the bright light application.
+ */
 @Component({
   selector: 'bl-roster-view',
   templateUrl: './roster-view.component.html',

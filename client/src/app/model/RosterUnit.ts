@@ -1,5 +1,10 @@
 import { CatalogueUnit } from "./CatalogueUnit";
 
+
+/**
+ * A unit inside a roster. 
+ * What a unit means depends on the game: it may be a squad of soldiers, or a single character. 
+ */
 export class RosterUnit {
     name: string;
     type: string;

@@ -1,5 +1,10 @@
 import { CatalogueUnit } from "./CatalogueUnit";
 
+/**
+ * A catalogue contains a definition of attributes, description and abilities of
+ * different units, as well as rules and constraints to build a roster from those 
+ * units.
+ */
 export class UnitCatalogue {
     constructor(
         public name: string,

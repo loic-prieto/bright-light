@@ -4,6 +4,10 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { RosterUnit } from 'src/app/model/RosterUnit';
 import { Roster } from '../../model/Roster';
 
+/**
+ * A component that given a roster, displays its units in a list view and
+ * that allows to edit the units, as well as removing them.
+ */
 @Component({
   selector: 'bl-unit-list',
   templateUrl: './unit-list.component.html',

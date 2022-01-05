@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Maybe } from 'purify-ts';
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { Roster } from 'src/app/model/Roster';
 import { RosterUnit } from 'src/app/model/RosterUnit';
@@ -29,7 +28,7 @@ export class RosterViewComponent implements OnInit {
     private _location: Location,
     private catalogueService: CatalogueService,
     private _dialog: MatDialog) {
-      let navigation = _router.getCurrentNavigation()
+      const navigation = _router.getCurrentNavigation()
       if(navigation?.extras?.state) {
         this.roster = navigation.extras.state['roster']
         if(!this.roster) {
@@ -41,8 +40,8 @@ export class RosterViewComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    let catalogueInfo = this.roster.getCatalogue()
-    let fullCatalogueResult = this.catalogueService.getCatalogue(catalogueInfo.name,catalogueInfo.version)
+    const catalogueInfo = this.roster.getCatalogue()
+    const fullCatalogueResult = this.catalogueService.getCatalogue(catalogueInfo.name,catalogueInfo.version)
     if(fullCatalogueResult.isNothing()) {
       AlertDialog.open(this._dialog,`Could not find catalogue ${catalogueInfo.name}-${catalogueInfo.version}`,"Drat!")
         .afterClosed().subscribe(()=>{

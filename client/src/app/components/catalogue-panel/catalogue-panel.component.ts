@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
-import { UnitCatalogue } from 'src/app/model/UnitCatalogue';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CatalogueUnit} from 'src/app/model/CatalogueUnit';
+import {UnitCatalogue} from 'src/app/model/UnitCatalogue';
 
 /**
  * Displays a panel with the units and configurations defined in a Catalogue

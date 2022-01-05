@@ -12,7 +12,7 @@ export class UnitCatalogue {
         private unitList: Array<CatalogueUnit> = []
     ){}
 
-    public addUnitDefinition(type: string, category: string, cost: number = 0){
+    public addUnitDefinition(type: string, category: string, cost = 0){
         this.unitList.push(new CatalogueUnit(type,cost,category))
     }
 

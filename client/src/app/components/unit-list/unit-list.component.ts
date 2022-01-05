@@ -57,7 +57,7 @@ export class UnitListComponent implements OnInit {
 
   openUnitMenu(event: Event, unit: RosterUnit): void {
     event.preventDefault(); 
-    let mevent = event as MouseEvent
+    const mevent = event as MouseEvent
     this.rosterUnitMenuPosition.x = `${mevent.clientX}px`
     this.rosterUnitMenuPosition.y = `${mevent.clientY}px`
 

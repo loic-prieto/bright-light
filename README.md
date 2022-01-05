@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Bright Light](#bright-light)
+  - [Table of contents](#table-of-contents)
   - [About Bright Light](#about-bright-light)
     - [What is Bright Light ?](#what-is-bright-light-)
     - [Do we need yet another data specification to describe game rules ?](#do-we-need-yet-another-data-specification-to-describe-game-rules-)
@@ -61,7 +62,12 @@ to its source.
 
 ### Technology
 
-We're not yet at a stage where we can write about this. When the design goals are clear, we will update this.
+There are two pieces to the Bright Light application:
+- A frontend
+- A backend
+The first one is implemented as an SPA in Angular, and the second one will probably be done as a very simple REST service
+in Java.
+Everything will be hosted in a cheap VPS provider.
 
 ### Development collaboration
 

@@ -1,3 +1,4 @@
+import { XML } from "sxml";
 import { BattleScribeEntity } from "./BattleScribeEntity";
 
 /**
@@ -7,4 +8,9 @@ import { BattleScribeEntity } from "./BattleScribeEntity";
  * other publications that expand upon those rules.
  */
 export class BattleScribePublication extends BattleScribeEntity {
+    static fromXMLNode(node: XML): BattleScribePublication {
+        return new BattleScribePublication(
+            node.getProperty("id"),
+            node.getProperty("name"))
+    }
 }

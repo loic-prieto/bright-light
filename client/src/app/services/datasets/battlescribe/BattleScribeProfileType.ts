@@ -1,3 +1,6 @@
+import { Maybe } from "purify-ts";
+import { getOptionalArray } from "src/app/util/sxml-utils";
+import { XML } from "sxml";
 import { BattleScribeCharacteristicType } from "./BattleScribeCharacteristicType";
 import { BattleScribeEntity } from "./BattleScribeEntity"
 
@@ -13,7 +16,18 @@ export class BattleScribeProfileType extends BattleScribeEntity{
     constructor(
         id: string,
         name: string,
-        public characteristicTypes:Array<BattleScribeCharacteristicType>) {
-            super(id,name)
-        }
+        public characteristicTypes:Maybe<Array<BattleScribeCharacteristicType>>) 
+    {
+        super(id,name)
+    }
+
+    static fromXMLNode(xmlNode: XML):BattleScribeProfileType {
+        const id = xmlNode.getProperty("id")
+        const name = xmlNode.getProperty("name")
+        const characteristicTypes = getOptionalArray("characteristicTypes",xmlNode,BattleScribeCharacteristicType.fromXMLNode)
+
+        return new BattleScribeProfileType(id,name,characteristicTypes)
+    }
+    
+
 }

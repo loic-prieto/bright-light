@@ -8,15 +8,17 @@ import { BattleScribePublication } from "./BattleScribePublication"
 import { BattleScribeRule } from "./BattleScribeRule"
 import { BattleScribeSelectionEntry } from "./BattleScribeSelectionEntry"
 import { BattleScribeSelectionEntryGroup } from "./BattleScribeSelectionEntryGroup"
+import { XML,XMLList } from 'sxml'
+import { Maybe } from "purify-ts"
+import { getBool, getNumber, getOptionalArray } from "src/app/util/sxml-utils"
 
 /**
  * Represents a Battlescribe Catalogue
  */
-export class BattlescribeCatalogue extends BattleScribeEntity {
+export class BattleScribeCatalogue extends BattleScribeEntity {
     constructor(
         id: string,
         name: string,
-        public publications: Array<BattleScribePublication>,
         public revision: number,
         public battleScribeVersion: string,
         public authorName: string,
@@ -25,18 +27,46 @@ export class BattlescribeCatalogue extends BattleScribeEntity {
         public library: boolean,
         public gameSystemId: string,
         public gameSystemRevision: number,
-        public profileTypes: Array<BattleScribeProfileType>,
-        public categoryEntries: Array<BattleScribeCategoryEntry>,
-        public entryLinks: Array<BattleScribeEntryLink>,
-        public infoLinks: Array<BattleScribeInfoLink>,
-        public sharedSelectionEntries: Array<BattleScribeSelectionEntry>,
-        public sharedSelectionEntryGroups: Array<BattleScribeSelectionEntryGroup>,
-        public sharedRules: Array<BattleScribeRule>,
-        public sharedProfiles: Array<BattleScribeProfileType>,
-        public catalogueLinks: Array<BattleScribeCatalogueLink>
+        public publications: Maybe<Array<BattleScribePublication>>,
+        public profileTypes: Maybe<Array<BattleScribeProfileType>>,
+        public categoryEntries: Maybe<Array<BattleScribeCategoryEntry>>,
+        public entryLinks: Maybe<Array<BattleScribeEntryLink>>,
+        public infoLinks: Maybe<Array<BattleScribeInfoLink>>,
+        public sharedSelectionEntries: Maybe<Array<BattleScribeSelectionEntry>>,
+        public sharedSelectionEntryGroups: Maybe<Array<BattleScribeSelectionEntryGroup>>,
+        public sharedRules: Maybe<Array<BattleScribeRule>>,
+        public sharedProfiles: Maybe<Array<BattleScribeProfileType>>,
+        public catalogueLinks: Maybe<Array<BattleScribeCatalogueLink>>
     ){
         super(id,name)
     }
 
-    
+    static fromString(xmlDocument: string): BattleScribeCatalogue {
+        const rootCatalogue: XML = new XML(xmlDocument)
+        
+        return new BattleScribeCatalogue(
+            rootCatalogue.getProperty("id"),
+            rootCatalogue.getProperty("name"),
+            getNumber("revision",rootCatalogue),
+            rootCatalogue.getProperty("battleScribeVersion"),
+            rootCatalogue.getProperty("authorName"),
+            rootCatalogue.getProperty("authorContact"),
+            rootCatalogue.getProperty("authorUrl"),
+            getBool("library",rootCatalogue),
+            rootCatalogue.getProperty("gameSystemId"),
+            getNumber("gameSystemRevision",rootCatalogue),
+            getOptionalArray("publications",rootCatalogue,BattleScribePublication.fromXMLNode),
+            getOptionalArray("profileTypes",rootCatalogue,BattleScribeProfileType.fromXMLNode),
+            getOptionalArray("categoryEntries",rootCatalogue,BattleScribeCategoryEntry.fromXMLNode),
+            getOptionalArray("entryLinks",rootCatalogue,BattleScribeEntryLink.fromXMLNode),
+            getOptionalArray("infoLinks",rootCatalogue,BattleScribeInfoLink.fromXMLNode),
+            getOptionalArray("sharedSelectionEntries",rootCatalogue,BattleScribeSelectionEntry.fromXMLNode),
+            getOptionalArray("sharedSelectionEntryGroups",rootCatalogue,BattleScribeSelectionEntryGroup.fromXMLNode),
+            getOptionalArray("sharedRules",rootCatalogue,BattleScribeRule.fromXMLNode),
+            getOptionalArray("sharedProfiles",rootCatalogue,BattleScribeProfileType.fromXMLNode),
+            getOptionalArray("catalogueLinks",rootCatalogue,BattleScribeCatalogueLink.fromXMLNode)
+        )
+        
+    } 
 }
+

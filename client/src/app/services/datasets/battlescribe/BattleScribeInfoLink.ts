@@ -1,3 +1,5 @@
+import { getBool } from "src/app/util/sxml-utils";
+import { XML } from "sxml";
 import { BattleScribeEntity } from "./BattleScribeEntity";
 
 export class BattleScribeInfoLink extends BattleScribeEntity {
@@ -9,5 +11,16 @@ export class BattleScribeInfoLink extends BattleScribeEntity {
         public type: string
     ) {
         super(id,name)
+    }
+
+    static fromXMLNode(xmlNode: XML): BattleScribeInfoLink {
+        
+        return new BattleScribeInfoLink(
+            xmlNode.getProperty("id"),
+            xmlNode.getProperty("name"),
+            getBool("hidden",xmlNode),
+            xmlNode.getProperty("targetId"),
+            xmlNode.getProperty("type")
+        )
     }
 }

@@ -1,3 +1,4 @@
+import { XML } from "sxml";
 import { BattleScribeEntity } from "./BattleScribeEntity";
 
 /**
@@ -8,5 +9,11 @@ import { BattleScribeEntity } from "./BattleScribeEntity";
  * Explosion is the ProfileType.
  */
 export class BattleScribeCharacteristicType extends BattleScribeEntity {
-
+    static fromXMLNode(xmlNode: XML): BattleScribeCharacteristicType {
+        return new BattleScribeCharacteristicType(
+            xmlNode.getProperty("id"),
+            xmlNode.getProperty("name")
+        )
+    }
+    
 }

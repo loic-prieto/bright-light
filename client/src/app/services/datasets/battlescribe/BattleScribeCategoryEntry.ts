@@ -1,3 +1,5 @@
+import { getBool } from "src/app/util/sxml-utils";
+import { XML } from "sxml";
 import { BattleScribeEntity } from "./BattleScribeEntity";
 
 /**
@@ -11,5 +13,14 @@ export class BattleScribeCategoryEntry extends BattleScribeEntity {
         public hidden: boolean
     ){
         super(id,name)
+    }
+
+    static fromXMLNode(xmlNode: XML): BattleScribeCategoryEntry {
+
+        return new BattleScribeCategoryEntry(
+            xmlNode.getProperty("id"),
+            xmlNode.getProperty("name"),
+            getBool("hidden",xmlNode)
+        )
     }
 }

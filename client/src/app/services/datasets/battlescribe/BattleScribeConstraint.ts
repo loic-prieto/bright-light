@@ -1,3 +1,6 @@
+import { getBool } from "src/app/util/sxml-utils";
+import { XML } from "sxml";
+
 export class BattleScribeConstraint {
     constructor(
         public id: string,
@@ -10,4 +13,18 @@ export class BattleScribeConstraint {
         public includeChildForces: boolean,
         public type: string
     ){}
+
+    static fromXMLNode(xmlDocument: XML): BattleScribeConstraint {
+        return new BattleScribeConstraint(
+            xmlDocument.getProperty("id"),
+            xmlDocument.getProperty("field"),
+            xmlDocument.getProperty("scope"),
+            xmlDocument.getProperty("value"),
+            getBool("percentValue",xmlDocument),
+            getBool("shared",xmlDocument),
+            getBool("includeChildSelections",xmlDocument),
+            getBool("includeChildForces",xmlDocument),
+            xmlDocument.getProperty("type")
+        )
+    } 
 }

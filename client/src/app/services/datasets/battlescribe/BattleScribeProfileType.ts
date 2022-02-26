@@ -9,7 +9,7 @@ import { BattleScribeEntity } from "./BattleScribeEntity"
  * its linked CharacteristicTypes "Dice Roll", "Mortal Wound" and "Distance".
  * See BattleScribeCharacteristicType.
  */
-export class BattlesCribeProfileType extends BattleScribeEntity{
+export class BattleScribeProfileType extends BattleScribeEntity{
     constructor(
         id: string,
         name: string,

@@ -1,6 +1,8 @@
 import { BattleScribeCategoryEntry } from "./BattleScribeCategoryEntry"
 import { BattleScribeEntity } from "./BattleScribeEntity"
-import { BattlesCribeProfileType } from "./BattleScribeProfileType"
+import { BattleScribeEntryLink } from "./BattleScribeEntryLink"
+import { BattleScribeInfoLink } from "./BattleScribeInfoLink"
+import { BattleScribeProfileType } from "./BattleScribeProfileType"
 import { BattleScribePublication } from "./BattleScribePublication"
 
 /**
@@ -19,8 +21,11 @@ export class BattlescribeCatalogue extends BattleScribeEntity {
         public library: boolean,
         public gameSystemId: string,
         public gameSystemRevision: number,
-        public profileTypes: Array<BattlesCribeProfileType>,
-        public categoryEntries: Array<BattleScribeCategoryEntry>
+        public profileTypes: Array<BattleScribeProfileType>,
+        public categoryEntries: Array<BattleScribeCategoryEntry>,
+        public entryLinks: Array<BattleScribeEntryLink>,
+        public infoLinks: Array<BattleScribeInfoLink>,
+        public sharedSelectionEntries: Array<BattleScribeSelectionEntry>
     ){
         super(id,name)
     }

@@ -9,8 +9,13 @@ export function getBool(propertyName: string, xmlNode: XML): boolean {
     return xmlNode.getProperty(propertyName) == "true" ? true : false
 }
 
+export function getOptional(propertyName: string, xmlNode: XML): Maybe<string> {
+    return xmlNode.hasProperty(propertyName) ?
+        Maybe.of(xmlNode.getProperty(propertyName)) :
+        Maybe.empty()
+}
 /**
- * This is a convenience method, not a general purpose boolean extractor. It doesn't handle errors.
+ * This is a convenience method, not a general purpose number extractor. It doesn't handle errors.
  * @param xmlNode 
  */
 export function getNumber(propertyName: string, xmlNode: XML): number {

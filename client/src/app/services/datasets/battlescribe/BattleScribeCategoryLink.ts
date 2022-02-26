@@ -2,6 +2,13 @@ import { getBool } from "src/app/util/sxml-utils";
 import { XML } from "sxml";
 import { BattleScribeEntity } from "./BattleScribeEntity";
 
+/**
+ * A unit can belong to several categories, and one of them is the primary one,
+ * meaning than when shown on a list, the primary one is the one it belongs to, visually,
+ * over others.
+ * For example, a commander may have an "HQ" category which is primary, and also a "Character" category,
+ * which is secondary.
+ */
 export class BattleScribeCategoryLink extends BattleScribeEntity {
     constructor(
         id: string,

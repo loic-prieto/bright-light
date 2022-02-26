@@ -12,7 +12,8 @@ import { BattleScribeProfile } from "./BattleScribeProfile";
 import { BattleScribeSelectionEntryGroup } from "./BattleScribeSelectionEntryGroup";
 
 /**
- * This class seems to represent units or weapons
+ * This class seems to represent units or weapons.
+ * More specifically: Units = Selection entry of type model
  */
 export class BattleScribeSelectionEntry extends BattleScribeEntity {
     constructor(

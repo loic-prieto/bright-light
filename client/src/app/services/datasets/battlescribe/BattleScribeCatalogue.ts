@@ -8,9 +8,9 @@ import { BattleScribePublication } from "./BattleScribePublication"
 import { BattleScribeRule } from "./BattleScribeRule"
 import { BattleScribeSelectionEntry } from "./BattleScribeSelectionEntry"
 import { BattleScribeSelectionEntryGroup } from "./BattleScribeSelectionEntryGroup"
-import { XML,XMLList } from 'sxml'
-import { Maybe } from "purify-ts"
-import { getBool, getNumber, getOptionalArray } from "src/app/util/sxml-utils"
+import { XML} from 'sxml'
+import {Either, Left, Maybe, Right} from "purify-ts"
+import {getBool, getNumber, getOptional, getOptionalArray} from "src/app/util/sxml-utils"
 
 /**
  * Represents a Battlescribe Catalogue
@@ -21,9 +21,9 @@ export class BattleScribeCatalogue extends BattleScribeEntity {
         name: string,
         public revision: number,
         public battleScribeVersion: string,
-        public authorName: string,
-        public authorContact: string,
-        public authorUrl: string,
+        public authorName: Maybe<string>,
+        public authorContact: Maybe<string>,
+        public authorUrl: Maybe<string>,
         public library: boolean,
         public gameSystemId: string,
         public gameSystemRevision: number,
@@ -41,32 +41,33 @@ export class BattleScribeCatalogue extends BattleScribeEntity {
         super(id,name)
     }
 
-    static fromString(xmlDocument: string): BattleScribeCatalogue {
-        const rootCatalogue: XML = new XML(xmlDocument)
-        
-        return new BattleScribeCatalogue(
-            rootCatalogue.getProperty("id"),
-            rootCatalogue.getProperty("name"),
-            getNumber("revision",rootCatalogue),
-            rootCatalogue.getProperty("battleScribeVersion"),
-            rootCatalogue.getProperty("authorName"),
-            rootCatalogue.getProperty("authorContact"),
-            rootCatalogue.getProperty("authorUrl"),
-            getBool("library",rootCatalogue),
-            rootCatalogue.getProperty("gameSystemId"),
-            getNumber("gameSystemRevision",rootCatalogue),
-            getOptionalArray("publications",rootCatalogue,BattleScribePublication.fromXMLNode),
-            getOptionalArray("profileTypes",rootCatalogue,BattleScribeProfileType.fromXMLNode),
-            getOptionalArray("categoryEntries",rootCatalogue,BattleScribeCategoryEntry.fromXMLNode),
-            getOptionalArray("entryLinks",rootCatalogue,BattleScribeEntryLink.fromXMLNode),
-            getOptionalArray("infoLinks",rootCatalogue,BattleScribeInfoLink.fromXMLNode),
-            getOptionalArray("sharedSelectionEntries",rootCatalogue,BattleScribeSelectionEntry.fromXMLNode),
-            getOptionalArray("sharedSelectionEntryGroups",rootCatalogue,BattleScribeSelectionEntryGroup.fromXMLNode),
-            getOptionalArray("sharedRules",rootCatalogue,BattleScribeRule.fromXMLNode),
-            getOptionalArray("sharedProfiles",rootCatalogue,BattleScribeProfileType.fromXMLNode),
-            getOptionalArray("catalogueLinks",rootCatalogue,BattleScribeCatalogueLink.fromXMLNode)
-        )
-        
+    static fromString(xmlDocument: string): Either<Error,BattleScribeCatalogue> {
+        return Either.encase(()=>{
+            const rootCatalogue: XML = new XML(xmlDocument)
+
+            return new BattleScribeCatalogue(
+                rootCatalogue.getProperty("id"),
+                rootCatalogue.getProperty("name"),
+                getNumber("revision",rootCatalogue),
+                rootCatalogue.getProperty("battleScribeVersion"),
+                getOptional("authorName",rootCatalogue),
+                getOptional("authorContact",rootCatalogue),
+                getOptional("authorUrl",rootCatalogue),
+                getBool("library",rootCatalogue),
+                rootCatalogue.getProperty("gameSystemId"),
+                getNumber("gameSystemRevision",rootCatalogue),
+                getOptionalArray("publications",rootCatalogue,BattleScribePublication.fromXMLNode),
+                getOptionalArray("profileTypes",rootCatalogue,BattleScribeProfileType.fromXMLNode),
+                getOptionalArray("categoryEntries",rootCatalogue,BattleScribeCategoryEntry.fromXMLNode),
+                getOptionalArray("entryLinks",rootCatalogue,BattleScribeEntryLink.fromXMLNode),
+                getOptionalArray("infoLinks",rootCatalogue,BattleScribeInfoLink.fromXMLNode),
+                getOptionalArray("sharedSelectionEntries",rootCatalogue,BattleScribeSelectionEntry.fromXMLNode),
+                getOptionalArray("sharedSelectionEntryGroups",rootCatalogue,BattleScribeSelectionEntryGroup.fromXMLNode),
+                getOptionalArray("sharedRules",rootCatalogue,BattleScribeRule.fromXMLNode),
+                getOptionalArray("sharedProfiles",rootCatalogue,BattleScribeProfileType.fromXMLNode),
+                getOptionalArray("catalogueLinks",rootCatalogue,BattleScribeCatalogueLink.fromXMLNode)
+            )
+        })
     } 
 }
 

@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Nothing } from 'purify-ts';
 import { CatalogueUnit } from 'src/app/model/CatalogueUnit';
 import { Roster } from 'src/app/model/Roster';
 import { RosterUnit } from 'src/app/model/RosterUnit';
@@ -42,15 +43,22 @@ export class RosterViewComponent implements OnInit {
   ngOnInit(): void {
     const catalogueInfo = this.roster.getCatalogue()
     const fullCatalogueResult = this.catalogueService.getCatalogue(catalogueInfo.name,catalogueInfo.version)
-    if(fullCatalogueResult.isNothing()) {
-      AlertDialog.open(this._dialog,`Could not find catalogue ${catalogueInfo.name}-${catalogueInfo.version}`,"Drat!")
+    fullCatalogueResult.ifLeft((error)=>{
+      AlertDialog.open(this._dialog,`There was an error while loading catalogue ${catalogueInfo.name}-${catalogueInfo.version}: ${error.message}`,"Drat!")
         .afterClosed().subscribe(()=>{
           this._location.back()
         })
-      
-    }
-
-    this.catalogue = fullCatalogueResult.extract()
+    })
+    .orDefault(Nothing)
+    .ifNothing(()=>{
+      AlertDialog.open(this._dialog,`Could not find catalogue ${catalogueInfo.name}-${catalogueInfo.version}`,"Drat!")
+      .afterClosed().subscribe(()=>{
+        this._location.back()
+      })
+    })
+    .ifJust(catalogue=>{
+      this.catalogue = catalogue
+    })
   }
 
   addUnit(unit: CatalogueUnit) {

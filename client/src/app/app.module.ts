@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { MatListModule } from '@angular/material/list'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -61,6 +62,8 @@ export declare const DATASET_CODEC_DI_TOKEN: InjectionToken<DatasetCodec>;
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    // Http client to load server files
+    HttpClientModule,
     // Material modules
     MatListModule,
     MatToolbarModule,

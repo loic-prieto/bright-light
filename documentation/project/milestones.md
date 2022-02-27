@@ -12,7 +12,7 @@
 
 ## Milestone Alpha 2
 
-* User can upload a BS Dataset from its computer
+* User can select a catalogue from a BS Dataset deployed in the server
 * A band can be created based on the information found in the BS dataset for the far future setting
 * A band can be saved and loaded to/from a local computer
 * Units can be distributed in groups

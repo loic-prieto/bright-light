@@ -1,12 +1,14 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Either } from "purify-ts";
-import { DATASET_CODEC_DI_TOKEN } from "src/app/app.module";
 import { UnitCatalogue } from "../../model/UnitCatalogue";
+import { BattlescribeDatasetCodec } from "./battlescribe-codec";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class DatasetReaderService {
 
-    constructor(@Inject(DATASET_CODEC_DI_TOKEN) private codec: DatasetCodec){}
+    constructor(private codec: BattlescribeDatasetCodec){}
     
     getCatalogueFromDataset(dataset: string): Either<Error,UnitCatalogue> {
         return this.codec.deserializeDataset(dataset)

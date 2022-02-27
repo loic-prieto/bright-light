@@ -6,7 +6,9 @@ import {BattleScribeCatalogue} from "./battlescribe/BattleScribeCatalogue";
 import {CatalogueUnit} from "../../model/CatalogueUnit";
 import {BattleScribeSelectionEntry} from "./battlescribe/BattleScribeSelectionEntry";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class BattlescribeDatasetCodec implements DatasetCodec {
 
     static COSTS_POINTS_TYPE = "pts"
@@ -21,7 +23,7 @@ export class BattlescribeDatasetCodec implements DatasetCodec {
     deserializeDataset(dataset: string): Either<Error, UnitCatalogue> {
         return BattleScribeCatalogue.fromString(dataset)
             .map(bsDataset => {
-                let units: Array<CatalogueUnit> = bsDataset.sharedSelectionEntries
+                const units: Array<CatalogueUnit> = bsDataset.sharedSelectionEntries
                     .mapOrDefault(
                         units=> units.map(BattlescribeDatasetCodec.mapUnit),
                         new Array<CatalogueUnit>())

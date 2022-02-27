@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -28,19 +28,6 @@ import { RosterViewComponent } from './components/roster-view/roster-view.compon
 import { HomeScreenComponent} from './components/home-screen/home-screen.component';
 import { HomeScreenCreateBandDialogComponent} from './components/home-screen/home-screen-create-band-dialog.component';
 import { AlertDialog } from './components/dialogs/alert/alert-dialog.component';
-import { DatasetCodec } from './services/datasets/dataset-reader.service'
-import { BattlescribeDatasetCodec } from './services/datasets/battlescribe-codec';
-
-/**
- * This DI token is used to dynamically inject the appropriate dataset reader. We will start with
- * the battlescribe codec in milestone alpha 2, but we are planning to have a "native" bright light 
- * codec in addition to the battlescribe one later on, if we feel the need to change the data format.
- * 
- * This is to be injected in the DatasetReader service.
- * 
- * Any part of the code can directly use the battlescribe codec service instead, if it wishes to do so.
- */
-export declare const DATASET_CODEC_DI_TOKEN: InjectionToken<DatasetCodec>;
 
 @NgModule({
   declarations: [
@@ -82,9 +69,7 @@ export declare const DATASET_CODEC_DI_TOKEN: InjectionToken<DatasetCodec>;
   ],
   providers: [
     // Material form field default style to fill as recommended
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
-    // For now the implementer of datasetcodec is battlescribe
-    {provide: DATASET_CODEC_DI_TOKEN, useClass: BattlescribeDatasetCodec}
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
   ],
   bootstrap: [AppComponent]
 })

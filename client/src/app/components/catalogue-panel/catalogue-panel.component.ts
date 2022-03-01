@@ -1,6 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CatalogueUnit} from 'src/app/model/CatalogueUnit';
 import {UnitCatalogue} from 'src/app/model/UnitCatalogue';
+import {ShortCatalogue} from "../../model/Roster";
+import {CatalogueService} from "../../services/catalogue.service";
+import {MatDialog} from "@angular/material/dialog";
+import {AlertDialog} from "../dialogs/alert/alert-dialog.component";
 
 /**
  * Displays a panel with the units and configurations defined in a Catalogue
@@ -13,16 +17,36 @@ import {UnitCatalogue} from 'src/app/model/UnitCatalogue';
 })
 export class CataloguePanelComponent implements OnInit {
 
-  @Input() catalogue?: UnitCatalogue
+  @Input() catalogueInfo?: ShortCatalogue
   @Output() onUnitAdded = new EventEmitter<CatalogueUnit>()
 
   categoryClassification: Array<CategoryUnits> = []
 
+  constructor(
+      private catalogueService: CatalogueService,
+      private dialog: MatDialog
+  ) {
+  }
+
   ngOnInit(): void {
-    if(!this.catalogue) {
-      throw new Error("The component should have been provided with a catalogue, it cannot initialize otherwise")
+    if (!this.catalogueInfo) {
+      const errorMessage = "The component should have been provided with a catalogue info, it cannot initialize otherwise"
+      console.error(errorMessage)
+      AlertDialog.open(this.dialog, errorMessage, "A tad weird, I reckon")
+    } else {
+      const self = this
+      this.catalogueService.getCatalogue(this.catalogueInfo.name, this.catalogueInfo.version)
+          .subscribe({
+            next(catalogue) {
+              self.categoryClassification = _build_unit_type_classification(catalogue)
+            },
+            error(error: Error) {
+              const errorMessage = `There was an error while retrieving the catalogue in the catalogue panel: ${error.message}`
+              console.error(errorMessage)
+              AlertDialog.open(self.dialog, errorMessage, "Well...that's it, then, ain't it?")
+            }
+          })
     }
-    this.categoryClassification = _build_unit_type_classification(this.catalogue)
   }
 
   addUnit(unit: CatalogueUnit) {

@@ -2,7 +2,7 @@
 
 <mat-drawer-container hasBackdrop="false">
     <mat-drawer mode="side" position="start" #catalogueDrawer>
-        <bl-catalogue-panel [catalogue]="catalogue" (onUnitAdded)="addUnit($event)"></bl-catalogue-panel>
+        <bl-catalogue-panel (onUnitAdded)="addUnit($event)" [catalogueInfo]="catalogueInfo"></bl-catalogue-panel>
     </mat-drawer>
     <mat-drawer-content>
         <div class="bl-grid-container bl-full-height">

@@ -1,9 +1,9 @@
-import { Injectable, OnInit } from '@angular/core';
-import { UnitCatalogue } from '../model/UnitCatalogue';
-import { Either, Maybe, Right } from 'purify-ts'
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { DatasetReaderService } from './datasets/dataset-reader.service';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {UnitCatalogue} from '../model/UnitCatalogue';
+import {Observable, of} from 'rxjs'
+import {map, tap} from 'rxjs/operators'
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {DatasetReaderService} from './datasets/dataset-reader.service';
 
 /**
  * Provides functions related to managing catalogues
@@ -13,68 +13,56 @@ import { Observable } from 'rxjs';
 })
 export class CatalogueService {
 
-  // For now this will serve to control whether the service is able to fetch the catalogues,
-  // which will happen as the application loads asynchronously, and provide meaningful error
-  // messages
-  private couldFetchCatalogues = false
-
   // Forget the power of using objects as keys in maps, for so much has been forgotten never to 
   // be relearned...
-  private inMemoryCatalogueDatabase = new Map<string,UnitCatalogue>()
+  private inMemoryCatalogueDatabase = new Map<string, UnitCatalogue>()
 
   constructor(
-    private httpClient: HttpClient, 
-    private datasetReaderService: DatasetReaderService) {
-      this.httpClient.get('./assets/test_bs_catalogue.cat',{ 
-        headers: new HttpHeaders({ 'Content-Type': 'application/xml' }),
+      private httpClient: HttpClient,
+      private datasetReaderService: DatasetReaderService) {
+  }
+
+  public getCatalogue(name: string, version: string): Observable<UnitCatalogue> {
+    if (this.inMemoryCatalogueDatabase.has(catalogueKey(name, version))) {
+      return of(this.inMemoryCatalogueDatabase.get(catalogueKey(name, version)) as UnitCatalogue)
+    } else {
+      return this.httpClient.get('./assets/test_bs_catalogue.cat', {
+        headers: new HttpHeaders({'Content-Type': 'application/xml'}),
         observe: 'response',
         responseType: 'arraybuffer'
-      }).subscribe(this.receiveCatalogues)
+      }).pipe(
+          map(this.parseCatalogue),
+          // Cache the result
+          tap((catalogue) => {
+            this.inMemoryCatalogueDatabase.set(catalogueKey(name, version), catalogue)
+          })
+      )
     }
-
-  public getCatalogue(name: string, version: string): Either<Error, Maybe<UnitCatalogue>> {
-    return Either.encase(() => {
-      if (this.couldFetchCatalogues) {
-        throw new Error("Could not load catalogues, check error messages in the console")
-      } else {
-        return Maybe.fromNullable(this.inMemoryCatalogueDatabase.get(catalogueKey(name, version)))
-      }
-    })
   }
 
-  public getAvailableCatalogues(): Observable<Either<Error,Array<CatalogueListItem>>> {
-    // This way of retrieving the catalogue list will have to be changed when we have several of them
-    // since it is based on first loading all of them fully
-    this.httpClient.get('./assets/test_bs_catalogue.cat',{ 
-      headers: new HttpHeaders({ 'Content-Type': 'application/xml' }),
-      observe: 'response',
-      responseType: 'arraybuffer'
-    })
-      .pipe(this.receiveCatalogues)
-      .subscribe(this.receiveCatalogues)
-    
-    
+  public getAvailableCatalogues(): Observable<Array<CatalogueListItem>> {
+    // While keeping an async API, for now we just retrieve a very static list
+    // of catalogues, that in the future will be queried in the backend
+    return of([{name: 'Test Catalogue', version: '184'}])
   }
 
-  private receiveCatalogues(httpEvent: HttpResponse<ArrayBuffer>): void {
-    if(httpEvent.ok) {
-      if(httpEvent.body) {
+  private parseCatalogue(httpEvent: HttpResponse<ArrayBuffer>): UnitCatalogue {
+    if (httpEvent.ok) {
+      if (httpEvent.body) {
         const datasetContent = new Uint8Array(httpEvent.body).toString()
         const datasetParsingResult = this.datasetReaderService.getCatalogueFromDataset(datasetContent)
-        if(datasetParsingResult.isRight()) {
-          const catalogue = datasetParsingResult.extract()
-          this.inMemoryCatalogueDatabase.set(catalogueKey(catalogue.name,catalogue.version),catalogue)
-          this.couldFetchCatalogues = true
+        if (datasetParsingResult.isRight()) {
+          return datasetParsingResult.extract()
         } else {
-          this.couldFetchCatalogues = false
-          const errorMessage = datasetParsingResult.mapLeft((error)=>error.message).extract()
-          console.error(`Could not load the dataset for url ${httpEvent.url}: ${errorMessage}`)
+          const errorMessage = datasetParsingResult.mapLeft((error) => error.message).extract()
+          throw new Error(`Could not load the dataset for url ${httpEvent.url}: ${errorMessage}`)
         }
+      } else {
+        throw new Error(`The call to ${httpEvent.url} was successful but there's no catalogue body, this is an error in the code`)
       }
     } else {
-      this.couldFetchCatalogues = false
       const bodyText = httpEvent.body ? new Uint8Array(httpEvent.body).toString() : ""
-      console.error(`Could not load the sample catalogue: for URL ${httpEvent.url} Status: ${httpEvent.status} ${httpEvent.statusText}, Message: ${bodyText}`)
+      throw new Error(`Error while calling the catalogue at ${httpEvent.url}: status ${httpEvent.status} ${httpEvent.statusText}\n${bodyText}`)
     }
   }
 }

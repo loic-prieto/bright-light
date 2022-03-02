@@ -16,6 +16,6 @@ export class DatasetReaderService {
 }
 
 export interface DatasetCodec {
-    deserializeDataset(dataset: string): Either<Error,UnitCatalogue>
+    deserializeDataset(dataset: string, gamesystem:): Either<Error,UnitCatalogue>
     serializeDataset(catalogue: UnitCatalogue): Either<Error,string>
 }

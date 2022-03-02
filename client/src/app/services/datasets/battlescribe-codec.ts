@@ -5,6 +5,9 @@ import {DatasetCodec} from "./dataset-reader.service";
 import {BattleScribeCatalogue} from "./battlescribe/BattleScribeCatalogue";
 import {CatalogueUnit} from "../../model/CatalogueUnit";
 import {BattleScribeSelectionEntry} from "./battlescribe/BattleScribeSelectionEntry";
+import {BattleScribeGamesystemCatalogue} from "./battlescribe/BattleScribeGamesystemCatalogue";
+import {HttpClient} from "@angular/common/http";
+import * as http from "http";
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +15,9 @@ import {BattleScribeSelectionEntry} from "./battlescribe/BattleScribeSelectionEn
 export class BattlescribeDatasetCodec implements DatasetCodec {
 
     static COSTS_POINTS_TYPE = "pts"
+
+    constructor(public httpClient: HttpClient) {
+    }
 
     serializeDataset(catalogue: UnitCatalogue): Either<Error, string> {
         return Either.encase(() => {
@@ -21,15 +27,33 @@ export class BattlescribeDatasetCodec implements DatasetCodec {
     }
 
     deserializeDataset(dataset: string): Either<Error, UnitCatalogue> {
-        return BattleScribeCatalogue.fromString(dataset)
-            .map(bsDataset => {
-                const units: Array<CatalogueUnit> = bsDataset.sharedSelectionEntries
-                    .mapOrDefault(
-                        units=> units.map(BattlescribeDatasetCodec.mapUnit),
-                        new Array<CatalogueUnit>())
+        // First obtain the basic battlescribe dataset
+        const result = BattleScribeCatalogue.fromString(dataset)
+        if(result.isLeft()) return result
+        const baseCatalogue = result.extract() as BattleScribeCatalogue
+        const gameSystemInfo = { id: baseCatalogue.gameSystemId, revision: baseCatalogue.gameSystemRevision }
 
-                return new UnitCatalogue(bsDataset.name, `${bsDataset.revision}`, units)
-            })
+
+
+
+
+        // baseUnitCatalogue.
+        // this.httpClient.get()
+        //
+        //
+        //     .map(bsDataset => {
+        //         const units: Array<CatalogueUnit> = bsDataset.sharedSelectionEntries
+        //             .mapOrDefault(
+        //                 units=> units.map(BattlescribeDatasetCodec.mapUnit),
+        //                 new Array<CatalogueUnit>())
+        //
+        //         return new UnitCatalogue(bsDataset.name, `${bsDataset.revision}`, units)
+        //     })
+
+    }
+
+    deserializeGameSystemDataset(dataset: string): Either<Error, BattleScribeGamesystemCatalogue> {
+        return BattleScribeGamesystemCatalogue.fromString(dataset)
     }
 
     private static mapUnit(bsUnit: BattleScribeSelectionEntry): CatalogueUnit {

@@ -3,6 +3,7 @@ import { getOptionalArray } from "src/app/util/sxml-utils";
 import { XML } from "sxml";
 import { BattleScribeCondition } from "./BattleScribeCondition";
 import { BattleScribeConditionGroup } from "./BattleScribeConditionGroup";
+import {BattleScribeRepeat} from "./BattleScribeRepeat";
 
 export class BattleScribeModifier {
     constructor(
@@ -10,7 +11,8 @@ export class BattleScribeModifier {
         public field: string,
         public value: string,
         public conditions: Maybe<Array<BattleScribeCondition>>,
-        public conditionGroups: Maybe<Array<BattleScribeConditionGroup>>
+        public conditionGroups: Maybe<Array<BattleScribeConditionGroup>>,
+        public repeats: Maybe<Array<BattleScribeRepeat>>,
     ){}
 
     static fromXMLNode(xmlNode: XML): BattleScribeModifier {
@@ -20,7 +22,8 @@ export class BattleScribeModifier {
             xmlNode.getProperty("field"),
             xmlNode.getProperty("value"),
             getOptionalArray("conditions",xmlNode,BattleScribeCondition.fromXMLNode),
-            getOptionalArray("conditionGroups",xmlNode,BattleScribeConditionGroup.fromXMLNode)
+            getOptionalArray("conditionGroups",xmlNode,BattleScribeConditionGroup.fromXMLNode),
+            getOptionalArray("repeats",xmlNode,BattleScribeRepeat.fromXMLNode)
         )
     }
 }

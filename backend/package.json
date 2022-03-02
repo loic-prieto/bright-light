@@ -1,0 +1,27 @@
+{
+  "name": "bright-light-backend",
+  "version": "0.1.0",
+  "description": "The backend for the Bright Light application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loic-prieto/bright-light.git"
+  },
+  "author": "loic@the-fire-archmage.ninja",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/loic-prieto/bright-light/issues"
+  },
+  "dependencies": {
+    "koa": "2.13.4",
+    "koa-router": "10.1.1",
+    "koa-body": "4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15"
+  },
+  "homepage": "https://github.com/loic-prieto/bright-light#readme"
+}

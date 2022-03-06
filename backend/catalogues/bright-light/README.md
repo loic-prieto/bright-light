@@ -1,0 +1,1 @@
+In this folder will live all converted catalogues from battlescribe as a sort of cache

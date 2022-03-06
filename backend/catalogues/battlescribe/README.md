@@ -1,0 +1,1 @@
+In this folder will appear all downloaded battlescribe catalogues and game systems as a FS cache

@@ -24,7 +24,12 @@ resource "hcloud_firewall" "bright-light" {
 resource "hcloud_floating_ip" "bright-light" {
   type      = "ipv4"
   name      = "bright-light-server"
-  server_id = hcloud_server.bright-light-server.id
+  home_location = var.region
+}
+
+resource "hcloud_floating_ip_assignment" "main" {
+  floating_ip_id = hcloud_floating_ip.bright-light.id
+  server_id      = hcloud_server.bright-light-server.id
 }
 
 resource "aws_route53_record" "bright-light-server" {

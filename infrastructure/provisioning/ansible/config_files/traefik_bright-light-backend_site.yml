@@ -1,0 +1,15 @@
+http:
+  routers:
+    to-backend:
+      rule: "Host(`bright-light-server.the-fire-archmage.ninja`)"
+      service: backend
+      tls:
+        certResolver: "bright-light-resolver"
+        domains:
+          - "bright-light-server.the-fire-archmage.ninja"
+
+  services:
+    backend:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:3000/"

@@ -1,0 +1,15 @@
+entryPoints:
+  web:
+    address: ":443"
+
+certificatesResolvers:
+  bright-light-resolver:
+    acme:
+      email: bright-light@the-fire-archmage.ninja
+      storage: /etc/traefik/acme/acme.json
+      dnsChallenge:
+        provider: route53
+
+providers:
+  file:
+    directory: /etc/traefik/conf.d

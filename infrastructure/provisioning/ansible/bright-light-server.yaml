@@ -1,0 +1,48 @@
+---
+- name: Setup common software
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: Install prereq packages
+      apt:
+        name:
+          - curl
+          - jq
+        state: present
+
+- name: Setup backend environment
+  hosts: all
+  remote_user: root
+  vars:
+    traefik_version: 2.6.1
+    node_version: 17
+    bright_light_backend_version: 0.1
+  tasks:
+    - name: Installing NodeJS repository
+      shell:
+        cmd: "curl -fsSL https://deb.nodesource.com/setup_{{ node_version }}.x | bash -"
+        executable: /bin/bash
+    - name: Installing NodeJS
+      apt:
+        name: nodejs
+        state: present
+    - name: Install traefik
+      shell:
+        cmd: |  
+          wget https://github.com/traefik/traefik/releases/download/v2.6.1/traefik_v{{ traefik_version }}_linux_amd64.tar.gz -O /tmp/traefik.tar.gz
+          tar -xf /tmp/traefik.tar.gz --directory /usr/local/bin
+          chmod ugo+rwx /usr/local/bin/traefik
+        executable: /bin/bash
+        creates: /usr/local/bin/traefik
+    - name: Ensure traefik config can be loaded
+      file:
+        path: /etc/traefik/conf.d
+        state: directory
+    - name: Upload traefik config
+      template:
+        dest: /etc/traefik/traefik.yml
+        src: config_files/traefik.yml
+    - name: Upload bright-light backend traefik config file
+      template:
+        dest: /etc/traefik/conf.d/bright-light-backend.yml
+        src: config_files/traefik_bright-light-backend_site.yml

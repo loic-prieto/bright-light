@@ -12,7 +12,7 @@ terraform {
   backend "s3" {
     bucket = "bright-light-tf-state-euw1"
     region = "eu-west-1"
-    key    = "/main/bright-light"
+    key    = "main/bright-light"
   }
 }
 
@@ -24,6 +24,8 @@ provider "aws" {
   # Doesn't matter too much as we're only managing DNS, which is global
   region = "eu-west-1"
   default_tags {
-    project = "bright-light"
+    tags = {
+      project = "bright-light"
+    }
   }
 }

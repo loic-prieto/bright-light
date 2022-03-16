@@ -20,3 +20,8 @@ variable "ssh_key_name" {
   description = "Name of the SSH Key stored in Hetzner security vault"
   default     = "server"
 }
+
+variable "aws_profile" {
+  type = string
+  description = "The AWS profile to use to interact with route53 and the tf remote state in S3"
+}

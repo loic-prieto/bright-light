@@ -23,6 +23,7 @@ provider "hcloud" {
 provider "aws" {
   # Doesn't matter too much as we're only managing DNS, which is global
   region = "eu-west-1"
+  profile = var.aws_profile
   default_tags {
     tags = {
       project = "bright-light"

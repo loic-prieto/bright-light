@@ -1,10 +1,9 @@
 import {Controller, Get, HttpStatus} from '@nestjs/common';
 import {HttpService} from "@nestjs/axios";
 import JSZip from "jszip";
-import {Catalogue} from "../model/Catalogue";
 import {XML} from "sxml";
-
 const zip = require("jszip")
+import {BattleScribeIndex} from "src/model/battlescribe/index/BattleScribeIndex"
 
 @Controller()
 export class CatalogueController {
@@ -26,9 +25,11 @@ export class CatalogueController {
         })
             .then(zip.loadAsync)
             .then((zipFile: JSZip) => zipFile.file("index.xml").async("string"))
-            .then((indexXMLContent)=>{
-                const rootNode: XML = new XML(indexXMLContent)
-                return [...rootNode.get("dataIndexEntries").at(0).get("dataIndexEntry")].map(Catalogue.fromNode)
+            .then((indexXMLContent)=>
+				return BattleScribeIndex.fromString(indexXMLContent)
+					.ifLeft((error)=>{throw error})
+					.map(CatalogueIndex.fromBSIndex)
+					.unsafeCoerce()
             })
     }
 }

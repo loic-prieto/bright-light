@@ -1,0 +1,14 @@
+[Unit]
+Description=Traefik service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/etc/traefik
+ExecStart=/usr/local/bin/traefik
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

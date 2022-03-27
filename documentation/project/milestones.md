@@ -14,37 +14,22 @@
 
 * User can select a catalogue from a BS Dataset deployed in the server
 * A band can be created based on the information found in the BS dataset for the far future setting
-* A band can be saved and loaded to/from a local computer
-* Units can be distributed in groups
+* The backend has different versions of the datasets stored and fetchable
+* Accidentally done - Deploy the whole thing into a cloud provider
 
 ## Milestone Alpha 3
 
-* The datasets can be loaded by the webapp from a backend service without the user having to upload it
-* The backend has different versions of the datasets stored and fetchable
-
-## Milestone Alpha 4
-
-* The rules engine is designed and a prototype implemented with a fake set of rules
+* A band can be saved and loaded to/from a local computer
+* Units can be distributed in groups
+* The rules engine is designed and a prototype implemented with the ruleset of the zealous robots
 
 ## Milestone Beta 1
 
-* A band can be created fully with the dataset of the emotionally restrained space fairies, with rules validations
+* One of the complex factions is implemented. The robotic zealots may be one it
 
 ## Milestone Beta 2
 
-* Simpler factions are added to the list of available bands with full rule validation
-
-## Milestone Beta 3
-
-* One of the complex factions is implemented. The robotic zealots may be one it
-
-## Milestone Beta 4
-
 * All the rules supporting all the factions are now implemented 
-
-## Milestone Beta 5
-
-* The development pipeline allows creating and updating the hosting infrastructure
 
 ## Milestone release 1.0.0
 

@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
 import {HttpModule} from "@nestjs/axios";
-import {CatalogueController} from "./controllers/catalogue.controller";
-import {AppService} from "./services/app.service";
+import {CatalogueModule} from "./catalogue/catalogue.module"
 
 @Module({
-  imports: [HttpModule],
-  controllers: [CatalogueController],
-  providers: [AppService],
+  imports: [HttpModule,CatalogueModule]
 })
 export class AppModule {}

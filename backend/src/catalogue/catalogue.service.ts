@@ -1,14 +1,12 @@
 import {HttpStatus} from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
-import { EitherAsync } from 'purify-ts/EitherAsync'
-import { EitherAsync } from 'purify-ts/EitherAsync'
+import { Either, Left, Right } from 'purify-ts/Either'
+import { map, catchError } from 'rxjs/operators';
 import {HttpService} from "@nestjs/axios";
 import JSZip from "jszip";
-import {XML} from "sxml";
 const zip = require("jszip")
 import {BattleScribeIndex} from "./model/battlescribe/index/BattleScribeIndex"
 import { CatalogueIndex } from "./model/bright-light/CatalogueIndex"
-
 
 @Injectable()
 export class CatalogueService {
@@ -17,26 +15,30 @@ export class CatalogueService {
 
 	constructor(private readonly httpClient: HttpService) {}
   
-	getCatalogueList(): EitherAsync<Error,CatalogueIndex> {
-		return EitherAsync<Error,CatalogueIndex>(async (liftEither,fromPromise,throwE)=>{
-			const value = await fromPromise(new Promise<Error,CatalogueIndex>((resolve,reject)=>{
-				this.httpClient.get(CatalogueService.BS_DATA_INDEX,{responseType:"arraybuffer",responseEncoding:"binary"}).subscribe(
-					indexResponse => {	
-						if (indexResponse.status != HttpStatus.OK) {
-							reject(`Could not download the BS catalogue index file: ${indexResponse.status} - ${indexResponse.data}`)
-						} else {
-							resolve(indexResponse.data)
-						}
-					})
-				})
-					// This is applied in the promise
-					.then(zip.loadAsync)
-					.then((zipFile: JSZip) => zipFile.file("index.xml").async("string"))
-					.then((indexXMLContent)=> BattleScribeIndex.fromString(indexXMLContent)
-							.ifLeft((error)=>{throw error})
-							.map(CatalogueIndex.fromBSIndex)
-							.unsafeCoerce()))
-		})
+	getCatalogueList(): Observable<Either<Error,CatalogueIndex>> {
+		return this.httpClient.get(CatalogueService.BS_DATA_INDEX,{responseType:"arraybuffer",responseEncoding:"binary"})
+            .pipe(
+				catchError(error=> Left(new Error(error))),
+                map(response=>{
+                    let result: Either<Error,ArrayBuffer>
+                    if(response.status == HttpStatus.OK) {
+                        result = Right(response.data)
+                    } else {
+                        result = Left(new Error(`There was an error while retrieving the catalogue index: ${response.status}-${response.}`))
+                    }
+					return result
+                })
+			)
+			.pipe(concatMap((rawResult: Either<Error,ArrayBuffer>){
+				return rawResult
+					.map(zip.loadSync)
+					.map((zipFile: JSZip)=> zipFile.file("index.xml").async("string"))
+			}))
+			.pipe(map((xmlText: Either<Error,string>)=>{
+				return xmlText
+					.map(BattleScribeIndex.fromString).join()
+					.map(CatalogueIndex.fromBSIndex)
+			}))
 	}
 	
 	getCatalogue(): EitherAsync<Error,CatalogueIndex> {

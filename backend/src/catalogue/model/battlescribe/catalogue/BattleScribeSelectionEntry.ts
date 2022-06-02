@@ -1,15 +1,19 @@
-import { Maybe } from 'purify-ts';
-import { getBool, getNumber, getOptionalArray } from 'src/app/util/sxml-utils';
-import { XML } from 'sxml';
-import { BattleScribeCategoryLink } from './BattleScribeCategoryLink';
-import { BattleScribeConstraint } from './BattleScribeConstraint';
-import { BattleScribeCost } from './BattleScribeCost';
-import { BattleScribeEntity } from './BattleScribeEntity';
-import { BattleScribeEntryLink } from './BattleScribeEntryLink';
-import { BattleScribeInfoLink } from './BattleScribeInfoLink';
-import { BattleScribeModifier } from './BattleScribeModifier';
-import { BattleScribeProfile } from './BattleScribeProfile';
-import { BattleScribeSelectionEntryGroup } from './BattleScribeSelectionEntryGroup';
+import { Maybe } from "purify-ts";
+import {
+  getBool,
+  getNumber,
+  getOptionalArray,
+} from "../../../../util/sxml-utils";
+import { XML } from "sxml";
+import { BattleScribeCategoryLink } from "./BattleScribeCategoryLink";
+import { BattleScribeConstraint } from "./BattleScribeConstraint";
+import { BattleScribeCost } from "./BattleScribeCost";
+import { BattleScribeEntity } from "./BattleScribeEntity";
+import { BattleScribeEntryLink } from "./BattleScribeEntryLink";
+import { BattleScribeInfoLink } from "./BattleScribeInfoLink";
+import { BattleScribeModifier } from "./BattleScribeModifier";
+import { BattleScribeProfile } from "./BattleScribeProfile";
+import { BattleScribeSelectionEntryGroup } from "./BattleScribeSelectionEntryGroup";
 
 /**
  * This class seems to represent units or weapons.
@@ -32,57 +36,57 @@ export class BattleScribeSelectionEntry extends BattleScribeEntity {
     public categoryLinks: Maybe<Array<BattleScribeCategoryLink>>,
     public selectionEntryGroups: Maybe<Array<BattleScribeSelectionEntryGroup>>,
     public entryLinks: Maybe<Array<BattleScribeEntryLink>>,
-    public costs: Maybe<Array<BattleScribeCost>>,
+    public costs: Maybe<Array<BattleScribeCost>>
   ) {
     super(id, name);
   }
 
   static fromXMLNode(xmlDocument: XML): BattleScribeSelectionEntry {
     return new BattleScribeSelectionEntry(
-      xmlDocument.getProperty('id'),
-      xmlDocument.getProperty('name'),
-      xmlDocument.getProperty('publicationId'),
-      getNumber('page', xmlDocument),
-      getBool('hidden', xmlDocument),
-      getBool('collective', xmlDocument),
-      getBool('import', xmlDocument),
-      xmlDocument.getProperty('type'),
+      xmlDocument.getProperty("id"),
+      xmlDocument.getProperty("name"),
+      xmlDocument.getProperty("publicationId"),
+      getNumber("page", xmlDocument),
+      getBool("hidden", xmlDocument),
+      getBool("collective", xmlDocument),
+      getBool("import", xmlDocument),
+      xmlDocument.getProperty("type"),
       getOptionalArray(
-        'modifiers',
+        "modifiers",
         xmlDocument,
-        BattleScribeModifier.fromXMLNode,
+        BattleScribeModifier.fromXMLNode
       ),
       getOptionalArray(
-        'constraints',
+        "constraints",
         xmlDocument,
-        BattleScribeConstraint.fromXMLNode,
+        BattleScribeConstraint.fromXMLNode
       ),
       getOptionalArray(
-        'profiles',
+        "profiles",
         xmlDocument,
-        BattleScribeProfile.fromXMLNode,
+        BattleScribeProfile.fromXMLNode
       ),
       getOptionalArray(
-        'infoLinks',
+        "infoLinks",
         xmlDocument,
-        BattleScribeInfoLink.fromXMLNode,
+        BattleScribeInfoLink.fromXMLNode
       ),
       getOptionalArray(
-        'categoryLinks',
+        "categoryLinks",
         xmlDocument,
-        BattleScribeCategoryLink.fromXMLNode,
+        BattleScribeCategoryLink.fromXMLNode
       ),
       getOptionalArray(
-        'selectionEntryGroups',
+        "selectionEntryGroups",
         xmlDocument,
-        BattleScribeSelectionEntryGroup.fromXMLNode,
+        BattleScribeSelectionEntryGroup.fromXMLNode
       ),
       getOptionalArray(
-        'entryLinks',
+        "entryLinks",
         xmlDocument,
-        BattleScribeEntryLink.fromXMLNode,
+        BattleScribeEntryLink.fromXMLNode
       ),
-      getOptionalArray('costs', xmlDocument, BattleScribeCost.fromXMLNode),
+      getOptionalArray("costs", xmlDocument, BattleScribeCost.fromXMLNode)
     );
   }
 }

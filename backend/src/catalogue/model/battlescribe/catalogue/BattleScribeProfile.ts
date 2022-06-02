@@ -1,9 +1,9 @@
-import { Maybe } from 'purify-ts';
-import { getBool, getOptionalArray } from 'src/app/util/sxml-utils';
-import { XML } from 'sxml';
-import { BattleScribeCharacteristic } from './BattleScribeCharacteristic';
-import { BattleScribeEntity } from './BattleScribeEntity';
-import { BattleScribeModifierGroup } from './BattleScribeModifierGroup';
+import { Maybe } from "purify-ts";
+import { getBool, getOptionalArray } from "../../../../util/sxml-utils";
+import { XML } from "sxml";
+import { BattleScribeCharacteristic } from "./BattleScribeCharacteristic";
+import { BattleScribeEntity } from "./BattleScribeEntity";
+import { BattleScribeModifierGroup } from "./BattleScribeModifierGroup";
 
 export class BattleScribeProfile extends BattleScribeEntity {
   constructor(
@@ -14,29 +14,29 @@ export class BattleScribeProfile extends BattleScribeEntity {
     public typeId: string,
     public typeName: string,
     public modifierGroups: Maybe<Array<BattleScribeModifierGroup>>,
-    public characteristics: Maybe<Array<BattleScribeCharacteristic>>,
+    public characteristics: Maybe<Array<BattleScribeCharacteristic>>
   ) {
     super(id, name);
   }
 
   static fromXMLNode(xmlDocument: XML): BattleScribeProfile {
     return new BattleScribeProfile(
-      xmlDocument.getProperty('id'),
-      xmlDocument.getProperty('name'),
-      xmlDocument.getProperty('publicationId'),
-      getBool('hidden', xmlDocument),
-      xmlDocument.getProperty('typeId'),
-      xmlDocument.getProperty('typeName'),
+      xmlDocument.getProperty("id"),
+      xmlDocument.getProperty("name"),
+      xmlDocument.getProperty("publicationId"),
+      getBool("hidden", xmlDocument),
+      xmlDocument.getProperty("typeId"),
+      xmlDocument.getProperty("typeName"),
       getOptionalArray(
-        'modifierGroups',
+        "modifierGroups",
         xmlDocument,
-        BattleScribeModifierGroup.fromXMLNode,
+        BattleScribeModifierGroup.fromXMLNode
       ),
       getOptionalArray(
-        'characteristics',
+        "characteristics",
         xmlDocument,
-        BattleScribeCharacteristic.fromXMLNode,
-      ),
+        BattleScribeCharacteristic.fromXMLNode
+      )
     );
   }
 }

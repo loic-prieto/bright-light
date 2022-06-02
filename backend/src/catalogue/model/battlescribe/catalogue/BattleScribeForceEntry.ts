@@ -1,10 +1,9 @@
-import { Maybe } from 'purify-ts';
-import { getBool, getOptionalArray } from 'src/app/util/sxml-utils';
-import { XML } from 'sxml';
-import { BattleScribeCategoryLink } from './BattleScribeCategoryLink';
-import { BattleScribeEntity } from './BattleScribeEntity';
-import { BattleScribeModifier } from './BattleScribeModifier';
-import { BattleScribeModifierGroup } from './BattleScribeModifierGroup';
+import { Maybe } from "purify-ts";
+import { getBool, getOptionalArray } from "../../../../util/sxml-utils";
+import { XML } from "sxml";
+import { BattleScribeCategoryLink } from "./BattleScribeCategoryLink";
+import { BattleScribeEntity } from "./BattleScribeEntity";
+import { BattleScribeModifier } from "./BattleScribeModifier";
 
 /**
  * Represents a group of units, for example:
@@ -19,27 +18,27 @@ export class BattleScribeForceEntry extends BattleScribeEntity {
     public hidden: boolean,
     public modifiers: Maybe<Array<BattleScribeModifier>>,
     public categoryLinks: Maybe<Array<BattleScribeCategoryLink>>,
-    public forceEntries: Maybe<Array<BattleScribeForceEntry>>,
+    public forceEntries: Maybe<Array<BattleScribeForceEntry>>
   ) {
     super(id, name);
   }
 
   static fromXMLNode(xmlNode: XML): BattleScribeForceEntry {
     return new BattleScribeForceEntry(
-      xmlNode.getProperty('id'),
-      xmlNode.getProperty('name'),
-      getBool('hidden', xmlNode),
-      getOptionalArray('modifiers', xmlNode, BattleScribeModifier.fromXMLNode),
+      xmlNode.getProperty("id"),
+      xmlNode.getProperty("name"),
+      getBool("hidden", xmlNode),
+      getOptionalArray("modifiers", xmlNode, BattleScribeModifier.fromXMLNode),
       getOptionalArray(
-        'categoryLinks',
+        "categoryLinks",
         xmlNode,
-        BattleScribeCategoryLink.fromXMLNode,
+        BattleScribeCategoryLink.fromXMLNode
       ),
       getOptionalArray(
-        'forceEntries',
+        "forceEntries",
         xmlNode,
-        BattleScribeForceEntry.fromXMLNode,
-      ),
+        BattleScribeForceEntry.fromXMLNode
+      )
     );
   }
 }

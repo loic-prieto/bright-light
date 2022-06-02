@@ -1,21 +1,21 @@
-import { BattleScribeCatalogueLink } from './BattleScribeCatalogueLink';
-import { BattleScribeCategoryEntry } from './BattleScribeCategoryEntry';
-import { BattleScribeEntity } from './BattleScribeEntity';
-import { BattleScribeEntryLink } from './BattleScribeEntryLink';
-import { BattleScribeInfoLink } from './BattleScribeInfoLink';
-import { BattleScribeProfileType } from './BattleScribeProfileType';
-import { BattleScribePublication } from './BattleScribePublication';
-import { BattleScribeRule } from './BattleScribeRule';
-import { BattleScribeSelectionEntry } from './BattleScribeSelectionEntry';
-import { BattleScribeSelectionEntryGroup } from './BattleScribeSelectionEntryGroup';
-import { XML } from 'sxml';
-import { Either, Left, Maybe, Right } from 'purify-ts';
+import { BattleScribeCatalogueLink } from "./BattleScribeCatalogueLink";
+import { BattleScribeCategoryEntry } from "./BattleScribeCategoryEntry";
+import { BattleScribeEntity } from "./BattleScribeEntity";
+import { BattleScribeEntryLink } from "./BattleScribeEntryLink";
+import { BattleScribeInfoLink } from "./BattleScribeInfoLink";
+import { BattleScribeProfileType } from "./BattleScribeProfileType";
+import { BattleScribePublication } from "./BattleScribePublication";
+import { BattleScribeRule } from "./BattleScribeRule";
+import { BattleScribeSelectionEntry } from "./BattleScribeSelectionEntry";
+import { BattleScribeSelectionEntryGroup } from "./BattleScribeSelectionEntryGroup";
+import { XML } from "sxml";
+import { Either, Maybe } from "purify-ts";
 import {
   getBool,
   getNumber,
   getOptional,
   getOptionalArray,
-} from 'src/app/util/sxml-utils';
+} from "../../../../util/sxml-utils";
 
 /**
  * Represents a Battlescribe Catalogue
@@ -43,7 +43,7 @@ export class BattleScribeCatalogue extends BattleScribeEntity {
     >,
     public sharedRules: Maybe<Array<BattleScribeRule>>,
     public sharedProfiles: Maybe<Array<BattleScribeProfileType>>,
-    public catalogueLinks: Maybe<Array<BattleScribeCatalogueLink>>,
+    public catalogueLinks: Maybe<Array<BattleScribeCatalogueLink>>
   ) {
     super(id, name);
   }
@@ -53,66 +53,66 @@ export class BattleScribeCatalogue extends BattleScribeEntity {
       const rootCatalogue: XML = new XML(xmlDocument);
 
       return new BattleScribeCatalogue(
-        rootCatalogue.getProperty('id'),
-        rootCatalogue.getProperty('name'),
-        getNumber('revision', rootCatalogue),
-        rootCatalogue.getProperty('battleScribeVersion'),
-        getOptional('authorName', rootCatalogue),
-        getOptional('authorContact', rootCatalogue),
-        getOptional('authorUrl', rootCatalogue),
-        getBool('library', rootCatalogue),
-        rootCatalogue.getProperty('gameSystemId'),
-        getNumber('gameSystemRevision', rootCatalogue),
+        rootCatalogue.getProperty("id"),
+        rootCatalogue.getProperty("name"),
+        getNumber("revision", rootCatalogue),
+        rootCatalogue.getProperty("battleScribeVersion"),
+        getOptional("authorName", rootCatalogue),
+        getOptional("authorContact", rootCatalogue),
+        getOptional("authorUrl", rootCatalogue),
+        getBool("library", rootCatalogue),
+        rootCatalogue.getProperty("gameSystemId"),
+        getNumber("gameSystemRevision", rootCatalogue),
         getOptionalArray(
-          'publications',
+          "publications",
           rootCatalogue,
-          BattleScribePublication.fromXMLNode,
+          BattleScribePublication.fromXMLNode
         ),
         getOptionalArray(
-          'profileTypes',
+          "profileTypes",
           rootCatalogue,
-          BattleScribeProfileType.fromXMLNode,
+          BattleScribeProfileType.fromXMLNode
         ),
         getOptionalArray(
-          'categoryEntries',
+          "categoryEntries",
           rootCatalogue,
-          BattleScribeCategoryEntry.fromXMLNode,
+          BattleScribeCategoryEntry.fromXMLNode
         ),
         getOptionalArray(
-          'entryLinks',
+          "entryLinks",
           rootCatalogue,
-          BattleScribeEntryLink.fromXMLNode,
+          BattleScribeEntryLink.fromXMLNode
         ),
         getOptionalArray(
-          'infoLinks',
+          "infoLinks",
           rootCatalogue,
-          BattleScribeInfoLink.fromXMLNode,
+          BattleScribeInfoLink.fromXMLNode
         ),
         getOptionalArray(
-          'sharedSelectionEntries',
+          "sharedSelectionEntries",
           rootCatalogue,
-          BattleScribeSelectionEntry.fromXMLNode,
+          BattleScribeSelectionEntry.fromXMLNode
         ),
         getOptionalArray(
-          'sharedSelectionEntryGroups',
+          "sharedSelectionEntryGroups",
           rootCatalogue,
-          BattleScribeSelectionEntryGroup.fromXMLNode,
+          BattleScribeSelectionEntryGroup.fromXMLNode
         ),
         getOptionalArray(
-          'sharedRules',
+          "sharedRules",
           rootCatalogue,
-          BattleScribeRule.fromXMLNode,
+          BattleScribeRule.fromXMLNode
         ),
         getOptionalArray(
-          'sharedProfiles',
+          "sharedProfiles",
           rootCatalogue,
-          BattleScribeProfileType.fromXMLNode,
+          BattleScribeProfileType.fromXMLNode
         ),
         getOptionalArray(
-          'catalogueLinks',
+          "catalogueLinks",
           rootCatalogue,
-          BattleScribeCatalogueLink.fromXMLNode,
-        ),
+          BattleScribeCatalogueLink.fromXMLNode
+        )
       );
     });
   }

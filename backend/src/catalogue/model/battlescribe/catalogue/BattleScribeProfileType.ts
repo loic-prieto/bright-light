@@ -1,8 +1,8 @@
-import { Maybe } from 'purify-ts';
-import { getOptionalArray } from 'src/app/util/sxml-utils';
-import { XML } from 'sxml';
-import { BattleScribeCharacteristicType } from './BattleScribeCharacteristicType';
-import { BattleScribeEntity } from './BattleScribeEntity';
+import { Maybe } from "purify-ts";
+import { getOptionalArray } from "../../../../util/sxml-utils";
+import { XML } from "sxml";
+import { BattleScribeCharacteristicType } from "./BattleScribeCharacteristicType";
+import { BattleScribeEntity } from "./BattleScribeEntity";
 
 /**
  * Represents an aggregation of quantifiable concepts that is given a name,
@@ -16,18 +16,18 @@ export class BattleScribeProfileType extends BattleScribeEntity {
   constructor(
     id: string,
     name: string,
-    public characteristicTypes: Maybe<Array<BattleScribeCharacteristicType>>,
+    public characteristicTypes: Maybe<Array<BattleScribeCharacteristicType>>
   ) {
     super(id, name);
   }
 
   static fromXMLNode(xmlNode: XML): BattleScribeProfileType {
-    const id = xmlNode.getProperty('id');
-    const name = xmlNode.getProperty('name');
+    const id = xmlNode.getProperty("id");
+    const name = xmlNode.getProperty("name");
     const characteristicTypes = getOptionalArray(
-      'characteristicTypes',
+      "characteristicTypes",
       xmlNode,
-      BattleScribeCharacteristicType.fromXMLNode,
+      BattleScribeCharacteristicType.fromXMLNode
     );
 
     return new BattleScribeProfileType(id, name, characteristicTypes);

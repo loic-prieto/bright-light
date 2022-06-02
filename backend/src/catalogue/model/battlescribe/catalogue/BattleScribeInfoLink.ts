@@ -1,6 +1,6 @@
-import { getBool } from 'src/app/util/sxml-utils';
-import { XML } from 'sxml';
-import { BattleScribeEntity } from './BattleScribeEntity';
+import { getBool } from "../../../../util/sxml-utils";
+import { XML } from "sxml";
+import { BattleScribeEntity } from "./BattleScribeEntity";
 
 export class BattleScribeInfoLink extends BattleScribeEntity {
   constructor(
@@ -8,18 +8,18 @@ export class BattleScribeInfoLink extends BattleScribeEntity {
     name: string,
     public hidden: boolean,
     public targetId: string,
-    public type: string,
+    public type: string
   ) {
     super(id, name);
   }
 
   static fromXMLNode(xmlNode: XML): BattleScribeInfoLink {
     return new BattleScribeInfoLink(
-      xmlNode.getProperty('id'),
-      xmlNode.getProperty('name'),
-      getBool('hidden', xmlNode),
-      xmlNode.getProperty('targetId'),
-      xmlNode.getProperty('type'),
+      xmlNode.getProperty("id"),
+      xmlNode.getProperty("name"),
+      getBool("hidden", xmlNode),
+      xmlNode.getProperty("targetId"),
+      xmlNode.getProperty("type")
     );
   }
 }

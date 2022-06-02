@@ -1,7 +1,7 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
-import { CatalogueIndex } from '../../../common/src/model/CatalogueIndex';
 import { CatalogueService } from './catalogue.service';
+import { CatalogueIndex } from 'bright-light-common';
 
 @Controller('catalogues')
 export class CatalogueController {
@@ -11,14 +11,14 @@ export class CatalogueController {
   constructor(private readonly catalogueService: CatalogueService) {}
 
   @Get()
-  async getCatalogueList(@Res() response: Response) {
+  async getCatalogueList(@Res() response: Response<CatalogueIndex | Error>) {
     return this.catalogueService
-      .getCatalogues()
-      .ifLeft((error) => {
-        response.status(HttpStatus.SERVER_ERROR).body(error).send();
+      .getCatalogueList()
+      .ifLeft((error: Error) => {
+        response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error).send();
       })
-      .ifRight((catalogues) => {
-        response.status(HttpStatus.OK).body(catalogues).send();
+      .ifRight((catalogues: CatalogueIndex) => {
+        response.status(HttpStatus.OK).json(catalogues).send();
       });
   }
 }

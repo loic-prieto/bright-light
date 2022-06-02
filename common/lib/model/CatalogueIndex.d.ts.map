@@ -1,0 +1,1 @@
+{"version":3,"file":"CatalogueIndex.d.ts","sourceRoot":"","sources":["../../src/model/CatalogueIndex.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,MAAM,uBAAuB,CAAC;AAE5D,qBAAa,cAAc;IAEhB,IAAI,EAAE,MAAM;IACZ,OAAO,EAAE,KAAK,CAAC,mBAAmB,CAAC;gBADnC,IAAI,EAAE,MAAM,EACZ,OAAO,EAAE,KAAK,CAAC,mBAAmB,CAAC;CAE7C"}

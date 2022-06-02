@@ -1,31 +1,31 @@
-import { XML} from 'sxml'
-import {Either } from "purify-ts"
+import { XML } from 'sxml';
+import { CatalogueIndexEntry } from 'bright-light-common';
 
 /**
  * Represents a Battlescribe Catalogue
  */
 export class BattleScribeIndexDataIndexEntry {
-    constructor(
-        public id: string,
-        public name: string,
-        public revision: string,
-        public filePath: string,
-        public type: DataIndexEntryType
-    ){}
+  constructor(
+    public id: string,
+    public name: string,
+    public revision: string,
+    public filePath: string,
+    public type: DataIndexEntryType,
+  ) {}
 
-    static fromString(xmlDocument: string): Either<Error,BattleScribeIndexDataIndexEntry> {
-        return Either.encase(()=>{
-            const rootIndex: XML = new XML(xmlDocument)
+  static fromXMLNode(node: XML): BattleScribeIndexDataIndexEntry {
+    return new BattleScribeIndexDataIndexEntry(
+      node.getProperty('dataId'),
+      node.getProperty('dataName'),
+      node.getProperty('dataRevision'),
+      node.getProperty('filePath'),
+      node.getProperty('dataType') as DataIndexEntryType,
+    );
+  }
 
-            return new BattleScribeIndexDataIndexEntry (
-                rootCatalogue.getProperty("dataId"),
-                rootCatalogue.getProperty("dataName"),
-                rootCatalogue.getProperty("dataRevision"),
-                rootCatalogue.getProperty("filePath"),
-                rootCatalogue.getProperty("dataType")
-            )
-        })
-    } 
+  toCatalogueIndexEntry(): CatalogueIndexEntry {
+    return new CatalogueIndexEntry(this.name, this.revision);
+  }
 }
 
-export type DataIndexEntryType = 'catalogue' | 'gamesystem'
+export type DataIndexEntryType = 'catalogue' | 'gamesystem';

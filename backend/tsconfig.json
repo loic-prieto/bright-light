@@ -2,7 +2,10 @@
   "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

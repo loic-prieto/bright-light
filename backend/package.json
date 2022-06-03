@@ -5,6 +5,7 @@
   "author": "",
   "private": true,
   "license": "AGPL-3.0-or-later",
+  "main": "dist/backend/main",
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "nest build",
@@ -25,6 +26,7 @@
     "@nestjs/core": "8.4.6",
     "@nestjs/platform-express": "8.4.6",
     "adm-zip": "0.5.9",
+    "bright-light-common": "file:.yalc/bright-light-common",
     "compression": "1.7.4",
     "purify-ts": "1.2.0",
     "rxjs": "7.5.5",
